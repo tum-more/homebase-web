@@ -1,0 +1,37 @@
+---
+import PageLayout from "src/layouts/PageLayout.astro";
+import logoImage from "@assets/images/logo/homebase-logo.png";
+import { Image } from "astro:assets";
+import AstroSphereBackground from "@components/AstroSphereBackground.astro";
+---
+
+<PageLayout>
+  <div class="bg-background w-full h-screen">
+    <AstroSphereBackground />
+    <main
+      class="w-full h-screen flex flex-col justify-center items-center mx-auto max-w-screen-lg px-4"
+    >
+      <section class="relative">
+        <Image
+          src={logoImage}
+          alt="logo glowing"
+          loading="eager"
+          densities={[1.5, 2]}
+          class="glowing absolute"
+        />
+        <Image
+          src={logoImage}
+          alt="logo"
+          loading="eager"
+          densities={[1.5, 2]}
+          class=""
+        />
+        <h1
+          class="text-3xl sm:text-6xl font-bold text-primary/80 mt-8 text-center"
+        >
+          Coming soon!
+        </h1>
+      </section>
+    </main>
+  </div>
+</PageLayout>
