@@ -1,5 +1,6 @@
 ---
 // this file use code from https://github.com/markhorn-dev/astro-sphere/blob/main/src/components/AstroSphereBackground.astro
+import TwinklingStars from "./TwinklingStars.astro";
 import MeteorShower from "./MeteorShower.astro";
 ---
 
@@ -20,7 +21,7 @@ import MeteorShower from "./MeteorShower.astro";
 <!-- Dark Theme: Twinkling Stars / Metors -->
 <div id="galaxy" class="fixed inset-0">
   <div class="hidden dark:block">
-    <!-- <TwinklingStars /> -->
+    <TwinklingStars />
     <MeteorShower />
   </div>
 </div>
