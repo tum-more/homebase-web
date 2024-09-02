@@ -1,17 +1,21 @@
 ---
-interface Props {
-	date: Date;
+import type { HTMLAttributes } from "astro/types";
+import dayjs from "dayjs";
+
+interface Props extends HTMLAttributes<"time"> {
+  date: Date;
+  format?: string;
 }
 
-const { date } = Astro.props;
+const { date, format = "MMMM D", class: className, ...props } = Astro.props;
+const day = dayjs(date);
+const isValidDate = day.isValid();
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
+<time
+  datetime={date.toISOString()}
+  class:list={["text-body-4 text-gray-tertiary", className]}
+  {...props}
+>
+  {isValidDate ? day.format(format) : "-"}
 </time>

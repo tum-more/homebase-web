@@ -1,46 +1,39 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import ArticleBadge from "@components/atoms/ArticleBadge.astro";
+import { Image } from "astro:assets";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { slug, title, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-	</head>
-
-	<body>
-		<Header />
-		<main class="mx-auto">
-			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" class="bg-slate-200" />}
-				</div>
-				<div class="prose prose-xl px-4 sm:px-0 mx-auto">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1 class="text-4xl font-bold">{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+<article class="max-w-[858px] mx-auto">
+  <div class="prose prose-xl px-4 sm:px-0 mx-auto max-w-screen-sm">
+    <ArticleBadge transition:name={`article-${slug}-tags`} class="mb-1"> Knowledge </ArticleBadge>
+    <h1 transition:name={`article-${slug}-title`} class="text-heading-4 sm:text-heading-3 mb-6">
+      {title}
+    </h1>
+    <FormattedDate date={pubDate} transition:name={`article-${slug}-date`} />
+  </div>
+  <div
+    transition:name={`article-${slug}-image`}
+    class="aspect-16/9 overflow-hidden max-h-[488px] mx-auto"
+  >
+    {
+      heroImage && (
+        <Image
+          width={900}
+          height={482}
+          src={heroImage}
+          alt=""
+          class="object-cover w-full"
+        />
+      )
+    }
+  </div>
+  <div class="prose prose-xl px-4 sm:px-0 mx-auto max-w-screen-sm">
+    <slot />
+  </div>
+</article>

@@ -7,39 +7,86 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { Image } from "astro:assets";
+import ArticleBadge from "@components/atoms/ArticleBadge.astro";
+import dayjs from "dayjs";
+import ArticleItemCard from "@components/article/ArticleItemCard.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+const posts = (await getCollection("blog")).sort((a, b) =>
+  a.data.pubDate.valueOf() - b.data.pubDate.valueOf() ? 1 : -1
 );
+
+const firstPost = posts.shift();
 ---
 
-<PageLayout>
-  <main class="container mx-auto py-8">
-    <section class="space-y-8">
-      <h1 class="text-4xl font-bold">Blog</h1>
-      <ul class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {
-          posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.slug}/`}>
-                <div class="bg-gray-200 aspect-video overflow-hidden">
-                  {!!post.data.heroImage && <Image
-                    src={post.data.heroImage}
-                    alt=""
-                    width={320}
-                    height={180}
-                    class="bg-slate-200"
-                  />}
-                </div>
-                <h4 class="title">{post.data.title}</h4>
-                <p class="date">
-                  <FormattedDate date={post.data.pubDate} />
-                </p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+<PageLayout transition:animate="slide">
+  <main class="container mx-auto py-8 max-w-screen-xl">
+    <section class="space-y-12 flex flex-col">
+      <div class="space-y-2">
+        <h1 class="text-heading-2 font-heading">Homebase Article</h1>
+        <p class="text-body-2 text-gray-secondary">
+          Lorem ipsum dolor sit amet consectetur. Elit elementum egestas lectus
+          gravida blandit mattis gravida turpis neque.
+        </p>
+      </div>
+
+      <!-- Recent posts -->
+      <div class="flex gap-6 flex-col md:flex-row">
+        <div
+          class="flex flex-col gap-6 w-full md:w-[306px] order-2 md:order-1 px-5 md:px-0"
+        >
+          <ArticleBadge> Knowledge </ArticleBadge>
+          <div class="flex flex-col gap-3">
+            <a href={`/blog/${firstPost?.slug}/`}>
+              <h2
+                transition:name={`article-${firstPost?.slug}-title`}
+                class="text-heading-4"
+              >
+                {firstPost?.data.title}
+              </h2>
+            </a>
+            <p
+              transition:name={`article-${firstPost?.slug}-content`}
+              class="text-body-2 text-gray-secondary"
+            >
+              {firstPost?.data.description}
+            </p>
+          </div>
+          {
+            firstPost?.data.pubDate && (
+              <FormattedDate date={firstPost?.data.pubDate} />
+            )
+          }
+        </div>
+        <div
+          transition:name={`article-${firstPost?.slug}-image`}
+          class="flex flex-1 aspect-[16/9] overflow-hidden max-h-[500px] order-1 md:order-1"
+        >
+          <a href={`/blog/${firstPost?.slug}/`}>
+            {
+              !!firstPost?.data.heroImage && (
+                <Image
+                  src={firstPost.data.heroImage}
+                  alt=""
+                  width={900}
+                  height={180}
+                  class="bg-slate-200 object-cover"
+                />
+              )
+            }
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <h2 class="border-brand border-l-8 px-3 text-heading-5">
+          Recent posts
+        </h2>
+        <div
+          class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {posts.map((post) => <ArticleItemCard post={post} />)}
+        </div>
+      </div>
     </section>
-  </main></PageLayout
->
+  </main>
+</PageLayout>

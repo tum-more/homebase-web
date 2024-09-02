@@ -1,0 +1,53 @@
+---
+import ArticleBadge from "@components/atoms/ArticleBadge.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+---
+
+<div class="flex flex-col border-b border-gray-200 pb-6">
+  <div
+    transition:name={`article-${post.slug}-image`}
+    class="aspect-16/9 w-full overflow-hidden relative mb-3"
+  >
+    <a href={`/blog/${post.slug}/`}>
+      {
+        !!post.data.heroImage && (
+          <Image
+            src={post.data.heroImage}
+            alt=""
+            width={600}
+            height={600}
+            decoding="async"
+            loading="lazy"
+            class=""
+          />
+        )
+      }
+      <ArticleBadge
+        class="z-50 absolute bottom-3 left-3"
+        transition:name={`article-${post.slug}-tags`}
+      >
+        Knowledge
+      </ArticleBadge>
+    </a>
+  </div>
+  <a href={`/blog/${post.slug}/`} class="mb-2">
+    <h4
+      transition:name={`article-${post.slug}-title`}
+      class="text-heading-6 line-clamp-2"
+    >
+      {post.data.title}
+    </h4>
+  </a>
+  <FormattedDate
+    date={post.data.pubDate}
+    transition:name={`article-${post.slug}-date`}
+  />
+</div>

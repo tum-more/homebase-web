@@ -2,10 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fonts */
 @layer base {
   :root {
+    --font-family-heading: Archivo Variable, --font-family-body: Inter;
+    --font-family-heading: Archivo Variable, --font-family-body: Inter,
+  }
+}
+
+@layer base {
+  :root {
+      /* Colors Palette */ 
+      --black: 0 9% 9%;
+
+    --brand-50: 5 100% 97%;
+    --brand-500: 17 100% 49%;
+
+    /* Component colors */
+    --content-gray-default: 0 9% 9%;
+    --content-gray-secondary: 0 0% 31%;
+    --content-gray-tertiary: 0 0% 41%;
+
+    --brand-subtle: var(--brand-50);
+
+    /* Shadcn Colors */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: var(--black);
 
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -72,12 +94,13 @@
     filter: drop-shadow(0 0 1rem hsl(var(--primary) / 35%));
   }
   100% {
-    filter: drop-shadow(0 0 1rem hsl(var(--primary) / 35%)) drop-shadow(0 0 1rem hsl(var(--primary) / 35%));
+    filter: drop-shadow(0 0 1rem hsl(var(--primary) / 35%))
+      drop-shadow(0 0 1rem hsl(var(--primary) / 35%));
   }
 }
 .glowing {
   animation: glow 1.2s ease-in-out infinite;
-	animation-direction: alternate;
+  animation-direction: alternate;
 }
 
 /** Light theme particles on home page */
@@ -94,7 +117,9 @@
 .animate {
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
 }
 
 .animate.show {
@@ -113,7 +138,7 @@ article img {
  * TWINKLE STARS
  */
 
- #twinkle-star.template {
+#twinkle-star.template {
   @apply absolute -left-full; /* hide offscreen */
 }
 
@@ -121,13 +146,12 @@ article img {
   @apply animate-twinkle; /* defined in tailwind.config */
 }
 
-
 /**
  * Meteors
  */
 
 #meteors .shower {
-  @apply absolute inset-0 top-0;;
+  @apply absolute inset-0 top-0;
   @apply left-1/2 -translate-x-1/2;
   @apply w-screen aspect-square;
 }
