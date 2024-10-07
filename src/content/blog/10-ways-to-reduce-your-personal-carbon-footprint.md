@@ -1,9 +1,11 @@
 ---
-title: '10 Ways to Reduce Your Personal Carbon Footprint (Without Breaking a Sweat)' 
-description: 'Offer practical tips and simple lifestyle changes individuals can make to significantly reduce their carbon footprint, from using public
-transport to reducing food waste.'
-pubDate: 'Oct 28 2024'
-heroImage: '/images/plug-charging-ev.jpg'
+title: 10 Ways to Reduce Your Personal Carbon Footprint (Without Breaking a Sweat)
+description: >-
+  Offer practical tips and simple lifestyle changes individuals can make to
+  significantly reduce their carbon footprint, from using public transport to
+  reducing food waste.
+pubDate: 2024-10-27T17:00:00.000Z
+heroImage: /images/plug-charging-ev.jpg
 ---
 
 As individuals, we all want to do our part in reducing greenhouse gas emissions and mitigating climate change. However, making significant lifestyle changes can be daunting, especially when they seem too
