@@ -1,31 +1,35 @@
 "use client";
 
-import fetchThaiCarbon from "@/lib/feature/carbonThai/carbonThai.action";
+import { addCarbonThaiData, fetchThaiCarbon } from "@/lib/feature/carbonThai/carbonThai.action";
 import { useState } from "react";
 import { useLoading } from "./loadingContext";
 
 export default function CarbonThaiForm() {
-  const { loading, setLoading, setError, progress, setProgress } = useLoading();
-  const [data, setData] = useState<any[] | null>(null);
+  const { loading, setLoading, progress, setProgress, setError } = useLoading();
+  const [data, setData] = useState<any[]>([]);
 
   const handleClick = async () => {
     setLoading(true);
     setError(null);
-    setData(null);
+    setData([]);
     setProgress(0);
-
+  
     try {
       const results: any[] = [];
-      const totalPages = 5;
-
+      const totalPages = 10;
+  
       for (let page = 1; page <= totalPages; page++) {
         const response = await fetchThaiCarbon(page);
         results.push(...response);
         setProgress(Math.round((page / totalPages) * 100));
       }
-
+  
       setData(results);
       console.log({ results });
+  
+      // Save the results to the database
+      await addCarbonThaiData(results);
+  
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -33,6 +37,7 @@ export default function CarbonThaiForm() {
       setProgress(100);
     }
   };
+  
 
   return (
     <div>
@@ -48,15 +53,15 @@ export default function CarbonThaiForm() {
         <div className="h-2 bg-gray-300">
           <div
             className="h-full bg-blue-500"
-            style={{ width: `${Math.round(progress)}%` }}
+            style={{ width: `${progress}%` }}
           ></div>
         </div>
         <p>{progress}%</p>
       </div>
 
-      {data && data.length > 0 && (
+      {data.length > 0 && (
         <div>
-          <h2 className="mt-4 text-lg font-bold">Results: {data.length} </h2>
+          <h2 className="mt-4 text-lg font-bold">Results: {data.length}</h2>
         </div>
       )}
     </div>

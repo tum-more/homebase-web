@@ -1,6 +1,6 @@
 import { int, mysqlTable, text } from "drizzle-orm/mysql-core";
 
-export const thaiCarbonLabeling = mysqlTable("thai_carbon_labeling", {
+export const thaiCarbonTable = mysqlTable("thai_carbon", {
   id: int("id").primaryKey().autoincrement(),
   productImage: text("product_image"),
   productCode: text("product_code"),

@@ -1,11 +1,11 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "b03113de-122b-477d-a08a-908837cf2ebd",
+  "id": "c55d73de-cd1c-4310-a948-b723f09c6232",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "thai_carbon_labeling": {
-      "name": "thai_carbon_labeling",
+    "thai_carbon": {
+      "name": "thai_carbon",
       "columns": {
         "id": {
           "name": "id",
@@ -53,8 +53,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "thai_carbon_labeling_id": {
-          "name": "thai_carbon_labeling_id",
+        "thai_carbon_id": {
+          "name": "thai_carbon_id",
           "columns": [
             "id"
           ]
