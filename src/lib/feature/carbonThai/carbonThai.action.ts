@@ -48,7 +48,6 @@ export async function fetchThaiCarbon(page: number) {
 
 export async function addCarbonThaiData(results: any[]) {
   try {
-    await deleteAllCarbonData();
     const values = results.map((result) => ({
       productImage: result.productImage,
       productCode: result.productCode,
@@ -62,7 +61,7 @@ export async function addCarbonThaiData(results: any[]) {
   }
 }
 
-async function deleteAllCarbonData() {
+export async function deleteAllCarbonData() {
   try {
     await mysql.delete(thaiCarbonTable);
   } catch (error: any) {
