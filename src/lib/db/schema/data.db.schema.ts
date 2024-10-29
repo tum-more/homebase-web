@@ -1,10 +1,19 @@
 import { int, mysqlTable, text } from "drizzle-orm/mysql-core";
 
-export const thaiCarbonTable = mysqlTable("thai_carbon", {
+export const carbonThaiTable = mysqlTable("carbon_thai", {
   id: int("id").primaryKey().autoincrement(),
-  productImage: text("product_image"),
-  productCode: text("product_code"),
+  certificateNumber: text("certificate_number"),
   productName: text("product_name"),
-  companyName: text("company_name"),
-  carbonInfo: text("carbon_info"),
+  manufacturer: text("manufacturer"),
+  contactPerson: text("contact_person"),
+  address: text("address"),
+  phone: text("phone"),
+  email: text("email"),
+  industry: text("industry"),
+  unitOfWork: text("unit_of_work"),
+  scope: text("scope"),
+  carbonFootprint: text("carbon_footprint"),
+  approvalDate: text("approval_date"),
+  expiryDate: text("expiry_date"),
+  productImage: text("product_image")
 });
