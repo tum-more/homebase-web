@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import CarbonThaiForm from "./_tgo.form";
 import { LoadingProvider } from "./loadingContext";
+import TGOForm from "./_tgo.form";
 
 export default function TGOScreen() {
   return (
@@ -10,7 +10,7 @@ export default function TGOScreen() {
           <h1 className="text-xl sm:text-2xl text-center font-bold">
             TGO
           </h1>
-          <CarbonThaiForm />
+          <TGOForm />
         </main>
       </div>
     </LoadingProvider>
