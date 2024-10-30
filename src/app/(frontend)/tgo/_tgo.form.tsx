@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  addCarbonThaiData,
-  deleteAllCarbonData,
-  fetchThaiCarbon,
-} from "@/lib/feature/carbonThai/carbonThai.action";
 import { useLoading } from "./loadingContext";
+import { addTGORawData, deleteAllTGORawData, fetchTGORawData } from "@/lib/feature/carbonThai/tgo-raw-data.action";
 
 export default function TGOForm() {
   const { loading, setLoading, setError } = useLoading();
@@ -38,7 +34,7 @@ export default function TGOForm() {
     page: number = 1,
     totalSaved: number = 0
   ): Promise<number> => {
-    const response = await fetchThaiCarbon(page);
+    const response = await fetchTGORawData(page);
 
     if (response.length === 0) {
       return totalSaved;
@@ -48,7 +44,7 @@ export default function TGOForm() {
 
     while (updatedResults.length > 0) {
       const itemsToSave = updatedResults.slice(0, 100);
-      await addCarbonThaiData(itemsToSave);
+      await addTGORawData(itemsToSave);
       totalSaved += itemsToSave.length;
       updatedResults.splice(0, 100);
     }
@@ -65,7 +61,7 @@ export default function TGOForm() {
       const newWakeLock = await navigator.wakeLock.request("screen");
       setWakeLock(newWakeLock);
 
-      await deleteAllCarbonData();
+      await deleteAllTGORawData();
       const total = await fetchAndSaveData();
       setTotalItems(total);
     } catch (err) {
@@ -88,7 +84,6 @@ export default function TGOForm() {
       >
         {loading ? "Loading..." : "Get Data"}
       </button>
-
       {loading && (
         <div className="mt-4 space-y-2 flex flex-col items-center">
           {/* Spinner */}

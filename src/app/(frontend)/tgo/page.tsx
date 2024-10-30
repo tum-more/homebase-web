@@ -18,5 +18,5 @@ export default function TGOScreen() {
 }
 
 export const metadata: Metadata = {
-  title: "Carbon Thai",
+  title: "TGO",
 };
