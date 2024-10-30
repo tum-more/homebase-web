@@ -8,7 +8,7 @@ import {
 } from "@/lib/feature/carbonThai/carbonThai.action";
 import { useLoading } from "./loadingContext";
 
-export default function CarbonThaiForm() {
+export default function TGOForm() {
   const { loading, setLoading, setError } = useLoading();
   const [totalItems, setTotalItems] = useState<number>(0);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
