@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useLoading } from "../../../share/providers/loadingContextProvider";
-import { addTGORawData, deleteAllTGORawData, fetchTGORawData } from "@/lib/feature/carbonThai/tgo-raw-data.action";
+import {
+  addGreensealRawData,
+  deleteAllGreensealRawData,
+  fetchGreensealRawData,
+} from "@/lib/feature/greenseal/greenseal-raw-data.action";
 
-export default function TGOForm() {
+export default function GreensealForm() {
   const { loading, setLoading, setError } = useLoading();
   const [totalItems, setTotalItems] = useState<number>(0);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
@@ -30,26 +34,36 @@ export default function TGOForm() {
     };
   }, [wakeLock]);
 
-  const fetchAndSaveData = async (
-    page: number = 1,
-    totalSaved: number = 0
-  ): Promise<number> => {
-    const response = await fetchTGORawData(page);
+  // const fetchAndSaveData = async (
+  //   page: number = 1,
+  //   totalSaved: number = 0
+  // ): Promise<number> => {
+  //   const response = await fetchGreensealRawData();
 
-    if (response.length === 0) {
-      return totalSaved;
-    }
+  //   // if (response.length === 0) {
+  //   //   return totalSaved;
+  //   // }
 
-    const updatedResults = response;
+  //   // const updatedResults = response;
+  //   // console.log(response[0].additionalInfo[0]);
 
-    while (updatedResults.length > 0) {
-      const itemsToSave = updatedResults.slice(0, 100);
-      await addTGORawData(itemsToSave);
-      totalSaved += itemsToSave.length;
-      updatedResults.splice(0, 100);
-    }
+  //   // // while (updatedResults.length > 0) {
+  //   // //   const itemsToSave = updatedResults.slice(0, 100);
+  //   // //   await addGreensealRawData(itemsToSave);
+  //   // //   totalSaved += itemsToSave.length;
+  //   // //   updatedResults.splice(0, 100);
+  //   // // }
 
-    return fetchAndSaveData(page + 1, totalSaved);
+  //   // return fetchAndSaveData(page + 1, totalSaved);
+  // };
+
+  const fetchGreenseal = async () => {
+    try {
+      const response = await fetchGreensealRawData();
+      console.log(response);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } 
   };
 
   const handleOnPress = async () => {
@@ -60,10 +74,12 @@ export default function TGOForm() {
     try {
       const newWakeLock = await navigator.wakeLock.request("screen");
       setWakeLock(newWakeLock);
+      await fetchGreenseal();
 
-      await deleteAllTGORawData();
-      const total = await fetchAndSaveData();
-      setTotalItems(total);
+      //await deleteAllGreensealRawData();
+      //const total = await fetchAndSaveData();
+      //setTotalItems(total);
+     
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
