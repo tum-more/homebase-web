@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useLoading } from "../../../share/providers/loadingContextProvider";
 import {
   addGreensealRawData,
-  deleteAllGreensealRawData,
   fetchGreensealRawData,
+  getGreensealProductDetail,
 } from "@/lib/feature/greenseal/greenseal-raw-data.action";
 
 export default function GreensealForm() {
@@ -34,36 +34,27 @@ export default function GreensealForm() {
     };
   }, [wakeLock]);
 
-  // const fetchAndSaveData = async (
-  //   page: number = 1,
-  //   totalSaved: number = 0
-  // ): Promise<number> => {
-  //   const response = await fetchGreensealRawData();
-
-  //   // if (response.length === 0) {
-  //   //   return totalSaved;
-  //   // }
-
-  //   // const updatedResults = response;
-  //   // console.log(response[0].additionalInfo[0]);
-
-  //   // // while (updatedResults.length > 0) {
-  //   // //   const itemsToSave = updatedResults.slice(0, 100);
-  //   // //   await addGreensealRawData(itemsToSave);
-  //   // //   totalSaved += itemsToSave.length;
-  //   // //   updatedResults.splice(0, 100);
-  //   // // }
-
-  //   // return fetchAndSaveData(page + 1, totalSaved);
-  // };
-
-  const fetchGreenseal = async () => {
+  const fetchGreensealAndSave = async () => {
     try {
+      //TODO function for add data to database is addGreensealRawData()
       const response = await fetchGreensealRawData();
-      console.log(response);
+      const allItems = response?.flatMap(item => item.items || []) || [];
+      // separate datas 100 records
+      // const chunkSize = 100;
+      // for (let i = 0; i < allItems.length; i += chunkSize) {
+      //   const chunk = allItems.slice(i, i + chunkSize);
+      //   console.log('ddd')
+      //   const res = await addGreensealRawData(chunk);
+      //   console.log(res);
+      // }
+      setTotalItems(allItems.length);
+      console.log("Data saved successfully.");
+      console.log('----------------');
+      console.log(allItems);
+      console.log(allItems.length);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
-    } 
+    }
   };
 
   const handleOnPress = async () => {
@@ -74,12 +65,23 @@ export default function GreensealForm() {
     try {
       const newWakeLock = await navigator.wakeLock.request("screen");
       setWakeLock(newWakeLock);
-      await fetchGreenseal();
 
       //await deleteAllGreensealRawData();
-      //const total = await fetchAndSaveData();
+      const total = await fetchGreensealAndSave();
       //setTotalItems(total);
-     
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const MockFetchDetail = async () => {
+    try {
+      const res = await getGreensealProductDetail(
+        "https://certified.greenseal.org/facility/advanced-building-maintenance-inc"
+      );
+      console.log({ res });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

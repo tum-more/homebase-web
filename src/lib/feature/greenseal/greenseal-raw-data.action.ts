@@ -1,12 +1,173 @@
 "use server";
 
 import { mysql } from "@/lib";
+import { GreensealRawDataTable } from "@/lib/db/schema/greenseal-raw-data.db.schema";
 import axios from "axios";
 import { load } from "cheerio";
 import https from "https";
 
 const agent = new https.Agent({ rejectUnauthorized: false });
 const BASE_URL = "https://certified.greenseal.org/companies";
+
+export async function getGreensealProductDetail(url: string) {
+  let companyName: string = "";
+  let certificateType: string = "";
+  let yearOfCertification: string = "";
+
+  try {
+    const { data } = await axios.get(url, {
+      httpsAgent: agent,
+    });
+    const $ = load(data);
+
+    const productName = $(".jumbotron p").first().text().trim();
+    const productServiceDescription = $(".jumbotron img")
+      .next("p")
+      .text()
+      .trim();
+
+    $("div").each((index, element) => {
+      const companyDiv = $(element).find('div:contains("Company:") a');
+      if (companyDiv.length > 0) {
+        companyName = companyDiv.text().trim();
+      }
+      const StandardDiv = $(element).find('div:contains("Standard:") a');
+      if (StandardDiv.length > 0) {
+        certificateType = StandardDiv.text().trim();
+      }
+
+      const certifiedSinceDiv = $(element).find(
+        'div:contains("Certified Since:")'
+      );
+      if (certifiedSinceDiv.length > 0) {
+        yearOfCertification = certifiedSinceDiv
+          .text()
+          .replace("Certified Since: ", "")
+          .trim();
+      }
+    });
+
+    return {
+      companyName,
+      productName,
+      yearOfCertification,
+      certificateType,
+      url,
+      productServiceDescription,
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    throw new Error("Failed to fetch data");
+  }
+}
+
+// export const fetchInnerItems = async (url: string) => {
+//   const innerResults: any[] = [];
+//   try {
+//     const { data: items } = await axios.get(url, {
+//       httpsAgent: agent,
+//     });
+//     const $ = load(items);
+
+//     const innerPromises = $(".data-item-container .row .flex-col")
+//       .map((_index, element) => {
+//         const productDetailUrl = $(element).find("a").attr("href");
+//         if (productDetailUrl == null) return;
+
+//         return (async () => {
+//           try {
+//             const productDetail = await getGreensealProductDetail(
+//               productDetailUrl
+//             );
+//             const innerDetail = {
+//               productDetailUrl,
+//               productDetail,
+//             };
+
+//             innerResults.push(innerDetail);
+//           } catch (innerError: any) {
+//             console.error(
+//               `Error fetching details for ${productDetailUrl}:`,
+//               innerError.message
+//             );
+//           }
+//         })();
+//       })
+//       .get();
+
+//     await Promise.all(innerPromises);
+
+//     return innerResults;
+//   } catch (error: any) {
+//     if (error.response && error.response.status === 502) {
+//       console.error("502 Bad Gateway Error for URL:", url);
+//     } else {
+//       console.error("Error fetching additional data:", error.message);
+//     }
+//     return innerResults;
+//   }
+// };
+export const fetchInnerItems = async (url: string) => {
+  const innerResults: any[] = [];
+  let currentUrl: string | null = url; // ใช้ currentUrl เพื่อจัดการกับการทำ pagination
+
+  while (currentUrl) {
+    try {
+      const { data: items } = await axios.get(currentUrl, {
+        httpsAgent: agent,
+      });
+      const $ = load(items);
+
+      const innerPromises = $(".data-item-container .row .flex-col")
+        .map((_index, element) => {
+          const productDetailUrl = $(element).find("a").attr("href");
+          if (productDetailUrl == null) return;
+
+          return (async () => {
+            try {
+              const productDetail = await getGreensealProductDetail(
+                productDetailUrl
+              );
+              const innerDetail = {
+                productDetailUrl,
+                productDetail,
+              };
+
+              innerResults.push(innerDetail);
+            } catch (innerError: any) {
+              console.error(
+                `Error fetching details for ${productDetailUrl}:`,
+                innerError.message
+              );
+            }
+          })();
+        })
+        .get();
+
+      await Promise.all(innerPromises);
+
+      const nextPageLink = $("div.pagination:first a").last().attr("href");
+
+      const isNextDisabled =
+        $("div.pagination:first a").last().css("pointer-events") === "none";
+
+      if (nextPageLink && !isNextDisabled) {
+        currentUrl = nextPageLink;
+      } else {
+        currentUrl = null;
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 502) {
+        console.error("502 Bad Gateway Error for URL:", currentUrl);
+      } else {
+        console.error("Error fetching additional data:", error.message);
+      }
+      break;
+    }
+  }
+
+  return innerResults;
+};
 
 export async function fetchGreensealRawData() {
   const results: any[] = [];
@@ -16,86 +177,18 @@ export async function fetchGreensealRawData() {
       httpsAgent: agent,
     });
     const $ = load(data);
-
-    const fetchAdditionalData = async (dataLoadUrl: string) => {
-      const innerResults: any[] = [];
-      try {
-        const { data: additionalData } = await axios.get(dataLoadUrl, {
-          httpsAgent: agent,
-        });
-        const $additional = load(additionalData);
-
-        const innerPromises = $additional(".data-item-container .row .flex-col")
-          .map((index, element) => {
-            const innerUrl = $(element).find("a").attr("href");
-            if (innerUrl == null) return;
-
-            return (async () => {
-              try {
-                const { data: finalData } = await axios.get(innerUrl, {
-                  httpsAgent: agent,
-                });
-                
-                const detail$ = load(finalData);
-                const company = detail$('div:contains("Company:") a')
-                  .text()
-                  .trim();
-                const brand = detail$('div:contains("Brand:")')
-                  .text()
-                  .replace("Brand:", "")
-                  .trim();
-                const productName = detail$("h1").text().trim(); // Extracting the product name from an <h1> tag
-
-                // Add more details here as needed
-                const innerDetail = {
-                  innerUrl,
-                  company,
-                  brand,
-                  productName,
-                };
-
-                innerResults.push(innerDetail);
-              } catch (innerError: any) {
-                console.error(
-                  `Error fetching details for ${innerUrl}:`,
-                  innerError.message
-                );
-              }
-            })();
-          })
-          .get();
-
-        await Promise.all(innerPromises);
-
-        return innerResults;
-      } catch (error: any) {
-        // Handling 502 and other errors
-        if (error.response && error.response.status === 502) {
-          console.error("502 Bad Gateway Error for URL:", dataLoadUrl);
-        } else {
-          console.error("Error fetching additional data:", error.message);
-        }
-        return innerResults; // Return what you can
-      }
-    };
-
     const promises = $(".data-item-container .row .flex-col")
-      .map((index, element) => {
+      .map((_index, element) => {
         const mainUrl = $(element).find("a").attr("href");
 
         return (async () => {
-          console.log({ mainUrl });
-          const additionalInfo = mainUrl
-            ? await fetchAdditionalData(mainUrl)
-            : null;
-
-          results.push({ mainUrl, additionalInfo });
+          const items = mainUrl ? await fetchInnerItems(mainUrl) : null;
+          results.push({ mainUrl, items });
         })();
       })
       .get();
 
     await Promise.all(promises);
-
     return results;
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
@@ -103,20 +196,19 @@ export async function fetchGreensealRawData() {
   }
 }
 
-export async function addGreensealRawData(results: any[]) {
+export async function addGreensealRawData(items: any[]) {
   try {
-    const values = results.map((result) => ({
-      productServiceName: result.productName,
-      companyName: result.additionalInfo.companyName,
-      location: result.additionalInfo.location,
-      industry: result.additionalInfo.industry,
-      carbonFootprint: result.additionalInfo.carbonFootprint,
-      dateOfCertification: result.additionalInfo.dateOfCertification,
-      validity: result.additionalInfo.validity,
+    const values = items.map((item) => ({
+      productName: item.productDetail.productName,
+      companyName: item.productDetail.companyName,
+      productServiceDescription: item.productDetail.productServiceDescription,
+      yearOfCertification: item.productDetail.yearOfCertification,
+      certificateType: item.productDetail.certificateType,
+      referenceURL: item.productDetail.url,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));
-    //await mysql.insert(TGORawDataTable).values(values);
+    await mysql.insert(GreensealRawDataTable).values(values);
   } catch (error: any) {
     throw new Error("Error adding data to the database: " + error.message);
   }
@@ -124,7 +216,7 @@ export async function addGreensealRawData(results: any[]) {
 
 export async function deleteAllGreensealRawData() {
   try {
-    //await mysql.delete(TGORawDataTable);
+    await mysql.delete(GreensealRawDataTable);
   } catch (error: any) {
     throw new Error("Error adding data to the database: " + error.message);
   }
