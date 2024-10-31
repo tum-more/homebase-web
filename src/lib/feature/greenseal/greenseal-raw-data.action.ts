@@ -26,7 +26,7 @@ export async function getGreensealProductDetail(url: string) {
       .text()
       .trim();
 
-    $("div").each((index, element) => {
+    $("div").each((_index, element) => {
       const companyDiv = $(element).find('div:contains("Company:") a');
       if (companyDiv.length > 0) {
         companyName = companyDiv.text().trim();
@@ -60,56 +60,9 @@ export async function getGreensealProductDetail(url: string) {
     throw new Error("Failed to fetch data");
   }
 }
-
-// export const fetchInnerItems = async (url: string) => {
-//   const innerResults: any[] = [];
-//   try {
-//     const { data: items } = await axios.get(url, {
-//       httpsAgent: agent,
-//     });
-//     const $ = load(items);
-
-//     const innerPromises = $(".data-item-container .row .flex-col")
-//       .map((_index, element) => {
-//         const productDetailUrl = $(element).find("a").attr("href");
-//         if (productDetailUrl == null) return;
-
-//         return (async () => {
-//           try {
-//             const productDetail = await getGreensealProductDetail(
-//               productDetailUrl
-//             );
-//             const innerDetail = {
-//               productDetailUrl,
-//               productDetail,
-//             };
-
-//             innerResults.push(innerDetail);
-//           } catch (innerError: any) {
-//             console.error(
-//               `Error fetching details for ${productDetailUrl}:`,
-//               innerError.message
-//             );
-//           }
-//         })();
-//       })
-//       .get();
-
-//     await Promise.all(innerPromises);
-
-//     return innerResults;
-//   } catch (error: any) {
-//     if (error.response && error.response.status === 502) {
-//       console.error("502 Bad Gateway Error for URL:", url);
-//     } else {
-//       console.error("Error fetching additional data:", error.message);
-//     }
-//     return innerResults;
-//   }
-// };
 export const fetchInnerItems = async (url: string) => {
   const innerResults: any[] = [];
-  let currentUrl: string | null = url; // ใช้ currentUrl เพื่อจัดการกับการทำ pagination
+  let currentUrl: string | null = url;
 
   while (currentUrl) {
     try {
@@ -171,35 +124,70 @@ export const fetchInnerItems = async (url: string) => {
 
 export async function fetchGreensealRawData() {
   const results: any[] = [];
+  let currentUrl: string | null = BASE_URL;
+  let totalAdded = 0;
 
-  try {
-    const { data } = await axios.get(BASE_URL, {
-      httpsAgent: agent,
-    });
-    const $ = load(data);
-    const promises = $(".data-item-container .row .flex-col")
-      .map((_index, element) => {
-        const mainUrl = $(element).find("a").attr("href");
+  while (currentUrl) {
+    try {
+      const { data } = await axios.get(currentUrl, {
+        httpsAgent: agent,
+      });
+      const $ = load(data);
 
-        return (async () => {
-          const items = mainUrl ? await fetchInnerItems(mainUrl) : null;
-          results.push({ mainUrl, items });
-        })();
-      })
-      .get();
+      const promises = $(".data-item-container .row .flex-col")
+        .map((_index, element) => {
+          const mainUrl = $(element).find("a").attr("href");
 
-    await Promise.all(promises);
-    return results;
-  } catch (error: any) {
-    console.error("Error fetching data:", error.message);
-    throw new Error("Failed to fetch data");
+          return (async () => {
+            const items = mainUrl ? await fetchInnerItems(mainUrl) : null;
+            console.log(items);
+            if (items) {
+              results.push(...items);
+              if (results.length >= 100) {
+                await addGreensealRawData(results.splice(0, 100));
+                totalAdded += 100;
+                console.log(
+                  `Added 100 records to the database, total added: ${totalAdded}`
+                );
+              }
+            }
+          })();
+        })
+        .get();
+
+      await Promise.all(promises);
+
+      const nextPageLink = $("div.pagination:first a").last().attr("href");
+      const isNextDisabled =
+        $("div.pagination:first a").last().css("pointer-events") === "none";
+
+      if (nextPageLink && !isNextDisabled) {
+        currentUrl = nextPageLink;
+      } else {
+        currentUrl = null;
+      }
+    } catch (error: any) {
+      console.error("Error fetching data:", error.message);
+      throw new Error("Failed to fetch data");
+    }
   }
+
+  if (results.length > 0) {
+    await addGreensealRawData(results);
+    totalAdded += results.length;
+    console.log(
+      `Added ${results.length} remaining records to the database, total added: ${totalAdded}`
+    );
+  }
+
+  return totalAdded;
 }
 
 export async function addGreensealRawData(items: any[]) {
+  console.log(`Adding ${items.length} records to the database`);
   try {
     const values = items.map((item) => ({
-      productName: item.productDetail.productName,
+      productServiceName: item.productDetail.productName,
       companyName: item.productDetail.companyName,
       productServiceDescription: item.productDetail.productServiceDescription,
       yearOfCertification: item.productDetail.yearOfCertification,

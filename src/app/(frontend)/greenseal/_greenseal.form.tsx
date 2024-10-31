@@ -2,11 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLoading } from "../../../share/providers/loadingContextProvider";
-import {
-  addGreensealRawData,
-  fetchGreensealRawData,
-  getGreensealProductDetail,
-} from "@/lib/feature/greenseal/greenseal-raw-data.action";
+import { fetchGreensealRawData } from "@/lib/feature/greenseal/greenseal-raw-data.action";
 
 export default function GreensealForm() {
   const { loading, setLoading, setError } = useLoading();
@@ -36,22 +32,9 @@ export default function GreensealForm() {
 
   const fetchGreensealAndSave = async () => {
     try {
-      //TODO function for add data to database is addGreensealRawData()
-      const response = await fetchGreensealRawData();
-      const allItems = response?.flatMap(item => item.items || []) || [];
-      // separate datas 100 records
-      // const chunkSize = 100;
-      // for (let i = 0; i < allItems.length; i += chunkSize) {
-      //   const chunk = allItems.slice(i, i + chunkSize);
-      //   console.log('ddd')
-      //   const res = await addGreensealRawData(chunk);
-      //   console.log(res);
-      // }
-      setTotalItems(allItems.length);
+      const totals = await fetchGreensealRawData();
+      setTotalItems(totals);
       console.log("Data saved successfully.");
-      console.log('----------------');
-      console.log(allItems);
-      console.log(allItems.length);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     }
@@ -69,19 +52,6 @@ export default function GreensealForm() {
       //await deleteAllGreensealRawData();
       const total = await fetchGreensealAndSave();
       //setTotalItems(total);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const MockFetchDetail = async () => {
-    try {
-      const res = await getGreensealProductDetail(
-        "https://certified.greenseal.org/facility/advanced-building-maintenance-inc"
-      );
-      console.log({ res });
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
