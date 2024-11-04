@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useLoading } from "../../../share/providers/loadingContextProvider";
-import { addTGORawData, deleteAllTGORawData, fetchTGORawData } from "@/lib/feature/carbonThai/tgo-raw-data.action";
+import { fetchGreensealRawData } from "@/lib/feature/greenseal/greenseal-raw-data.action";
 
-export default function TGOForm() {
+export default function GreensealForm() {
   const { loading, setLoading, setError } = useLoading();
   const [totalItems, setTotalItems] = useState<number>(0);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
@@ -30,26 +30,14 @@ export default function TGOForm() {
     };
   }, [wakeLock]);
 
-  const fetchAndSaveData = async (
-    page: number = 1,
-    totalSaved: number = 0
-  ): Promise<number> => {
-    const response = await fetchTGORawData(page);
-
-    if (response.length === 0) {
-      return totalSaved;
+  const fetchGreensealAndSave = async () => {
+    try {
+      const totals = await fetchGreensealRawData();
+      setTotalItems(totals);
+      console.log("Data saved successfully.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
     }
-
-    const updatedResults = response;
-
-    while (updatedResults.length > 0) {
-      const itemsToSave = updatedResults.slice(0, 100);
-      await addTGORawData(itemsToSave);
-      totalSaved += itemsToSave.length;
-      updatedResults.splice(0, 100);
-    }
-
-    return fetchAndSaveData(page + 1, totalSaved);
   };
 
   const handleOnPress = async () => {
@@ -61,9 +49,9 @@ export default function TGOForm() {
       const newWakeLock = await navigator.wakeLock.request("screen");
       setWakeLock(newWakeLock);
 
-      await deleteAllTGORawData();
-      const total = await fetchAndSaveData();
-      setTotalItems(total);
+      //await deleteAllGreensealRawData();
+      const total = await fetchGreensealAndSave();
+      //setTotalItems(total);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
