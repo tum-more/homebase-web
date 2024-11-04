@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLoading } from "./loadingContext";
+import { useLoading } from "../../../share/providers/loadingContextProvider";
 import { addBCorpRawData, deleteAllBCorpRawData, fetchBCorpRawData } from "@/lib/feature/b-corp/b-corp-raw-data.action";
 
 export default function TGOForm() {

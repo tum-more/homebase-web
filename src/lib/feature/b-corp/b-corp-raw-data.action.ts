@@ -17,7 +17,7 @@ export async function fetchBCorpRawData(page: number) {
   const browser = await puppeteer.launch();
   try {
     const mainPage = await browser.newPage();
-    await mainPage.goto(`${BASE_URL}${page}`, { waitUntil: 'domcontentloaded' }); // waits until there are no active network connections for at least 500 ms.
+    await mainPage.goto(`${BASE_URL}${page}`, { waitUntil: 'networkidle2' }); // domcontentloaded
     const isSelectorPresent = await mainPage.waitForSelector('.ais-Hits-item', { timeout: 5000}).catch(() => null);
 
     if (!isSelectorPresent) {
@@ -81,27 +81,32 @@ const fetchAdditionalData = async (dataLoadUrl: string) => {
           .map((_, el) => $additional(el).text().trim())
           .get()
       )
-    ).join(", ") || "N/A";
+    ).join(", ") || null;
 
-    const certifiedSince = $additional("span:contains('Certified Since')")
+    let certifiedSince = $additional("span:contains('Certified Since')")
       .next(".opacity-60")
       .find("p span.font-serif")
       .first()
       .text()
-      .trim() || "N/A";
+      .trim() || null;
 
     const industry = $additional("span:contains('Industry')")
       .next(".opacity-60")
       .find("p")
       .text()
-      .trim() || "N/A";
+      .trim() || null;
 
     const website = $additional("span:contains('Website')")
       .next(".opacity-60")
       .find("a")
-      .attr("href") || "N/A";
+      .attr("href") || null;
 
-    const description = $additional("p.my-8").text().trim() || "N/A";
+    const description = $additional("p.my-8").text().trim() || null;
+
+    if (certifiedSince) {
+      const date = new Date(Date.parse(certifiedSince + " 01"));
+      certifiedSince = date.toISOString().split('T')[0];
+    }
 
     return{
       location,
@@ -119,12 +124,13 @@ const fetchAdditionalData = async (dataLoadUrl: string) => {
 export async function addBCorpRawData(results: any[]) {
   try {
     const values = results.map((result) => ({
-      companyName: result.companyName,
-      location: result.additionalData.location,
-      industry: result.additionalData.industry,
-      website: result.additionalData.website,
-      dateOfCertification: result.additionalData.certifiedSince,
-      companyDescription: result.additionalData.description,
+      companyName: result?.companyName ?? null,
+      location: result?.additionalData?.location ?? null,
+      industry: result?.additionalData?.industry ?? null,
+      website: result?.additionalData?.website ?? null,
+      dateOfCertification: result?.additionalData?.certifiedSince ?? null,
+      companyDescription: result?.additionalData?.description ?? null,
+      referenceURL: result?.companyLink ?? null,
     }));
     await mysql.insert(BCorpRawDataTable).values(values);
   } catch (error: any) {

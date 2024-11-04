@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { LoadingProvider } from "./loadingContext";
+import { LoadingProvider } from "../../../share/providers/loadingContextProvider";
 import BCorpForm from "./_bcorp.form";
 
 export default function BCorpScreen() {
