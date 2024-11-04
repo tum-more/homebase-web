@@ -17,7 +17,7 @@ export async function fetchBCorpRawData(page: number) {
   const browser = await puppeteer.launch();
   try {
     const mainPage = await browser.newPage();
-    await mainPage.goto(`${BASE_URL}${page}`, { waitUntil: 'networkidle2' }); // waits until there are no active network connections for at least 500 ms.
+    await mainPage.goto(`${BASE_URL}${page}`, { waitUntil: 'domcontentloaded' }); // waits until there are no active network connections for at least 500 ms.
     const isSelectorPresent = await mainPage.waitForSelector('.ais-Hits-item', { timeout: 5000}).catch(() => null);
 
     if (!isSelectorPresent) {
@@ -25,33 +25,37 @@ export async function fetchBCorpRawData(page: number) {
       return results;
     }
 
-    const items = await mainPage.evaluate(() => {
-      const items = Array.from(document.querySelectorAll('.ais-Hits-item'));
-      return items.map(item => {
-        const companyImage = item.querySelector("img")?.getAttribute("src") || "N/A";
-        const companyName = item.querySelector("span")?.innerText.trim() || "N/A";
-        const companyLink = item.querySelector("a")?.getAttribute("href") || "N/A";
-
-        return {
-          companyImage,
-          companyName,
-          companyLink,
-        };
+    // Extract main list data
+    const items = await mainPage.$$eval('.ais-Hits-item', elements => {
+      return elements.map(element => {
+        const companyImage = element.querySelector("img")?.getAttribute("src") || "N/A";
+        const companyName = element.querySelector("span")?.innerText.trim() || "N/A";
+        const companyLink = element.querySelector("a")?.getAttribute("href") || "N/A";
+        return { companyImage, companyName, companyLink };
       });
     });
 
-    for (const item of items) {
-      const additionalData = item.companyLink !== "N/A"
-        ? await fetchAdditionalData(item.companyLink)
-        : null;
-
-        results.push({
+    // Parallelize fetching additional data for each company link
+    const fetchPromises = items.map(async item => {
+      if (item.companyLink !== "N/A") {
+        const additionalData = await fetchAdditionalData(item.companyLink);
+        return {
           companyImage: item.companyImage,
           companyName: item.companyName,
           companyLink: INI_URL + item.companyLink,
           additionalData,
-        });
-    }
+        };
+      }
+      return {
+        companyImage: item.companyImage,
+        companyName: item.companyName,
+        companyLink: "N/A",
+        additionalData: null,
+      };
+    });
+
+    const resultsWithAdditionalData = await Promise.all(fetchPromises);
+    results.push(...resultsWithAdditionalData);
 
     return results;
 
