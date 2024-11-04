@@ -1,0 +1,1 @@
+ALTER TABLE `bcorp_raw_data_table` MODIFY COLUMN `date_of_certification` varchar(255);
