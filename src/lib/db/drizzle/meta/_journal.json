@@ -8,6 +8,20 @@
       "when": 1730369132036,
       "tag": "0000_friendly_justin_hammer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1730443236200,
+      "tag": "0001_abandoned_la_nuit",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1730444834374,
+      "tag": "0002_misty_gideon",
+      "breakpoints": true
     }
   ]
 }
