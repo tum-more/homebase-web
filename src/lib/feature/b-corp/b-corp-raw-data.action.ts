@@ -83,7 +83,7 @@ const fetchAdditionalData = async (dataLoadUrl: string) => {
       )
     ).join(", ") || null;
 
-    let certifiedSince = $additional("span:contains('Certified Since')")
+    const certifiedSince = $additional("span:contains('Certified Since')")
       .next(".opacity-60")
       .find("p span.font-serif")
       .first()
@@ -102,11 +102,6 @@ const fetchAdditionalData = async (dataLoadUrl: string) => {
       .attr("href") || null;
 
     const description = $additional("p.my-8").text().trim() || null;
-
-    if (certifiedSince) {
-      const date = new Date(Date.parse(certifiedSince + " 01"));
-      certifiedSince = date.toISOString().split('T')[0];
-    }
 
     return{
       location,
@@ -128,7 +123,7 @@ export async function addBCorpRawData(results: any[]) {
       location: result?.additionalData?.location ?? null,
       industry: result?.additionalData?.industry ?? null,
       website: result?.additionalData?.website ?? null,
-      dateOfCertification: result?.additionalData?.certifiedSince ?? null,
+      certifiedSince: result?.additionalData?.certifiedSince ?? null,
       companyDescription: result?.additionalData?.description ?? null,
       referenceURL: result?.companyLink ?? null,
     }));
