@@ -5,6 +5,7 @@ import {
   getTGOData,
   getGreensealData,
 } from "@/lib/feature/categorize/categorize-data.action";
+import stringSimilarity from 'string-similarity';
 
 type Company = {
   id: string;
@@ -46,16 +47,46 @@ export default function CategorizeForm() {
       // Group companies by name (groupId)
       const grouped = combinedData.reduce(
         (accummulatedGroups: Record<string, Company[]>, company) => {
+          const normalizedCompanyName = normalizeName(company.companyName);
+          let matchedGroupId: string | null = null;
+          let rating = 0;
+          for (const groupId in accummulatedGroups) {
+            const existingNames = accummulatedGroups[groupId].map((c) => c.companyName);
+            const matches = stringSimilarity.findBestMatch(
+              normalizedCompanyName,
+              existingNames.map(normalizeName)
+            );
+      
+            // If a match exceeds the similarity threshold, consider it the same group
+            rating = matches.bestMatch.rating;
+            if (rating > 0.8) {
+              matchedGroupId = groupId;
+              break;
+            }
+          }
+          if (matchedGroupId && rating != 1.0) {
+            // Add the company to the matched group
+            if (rating < 1.0) {
+              accummulatedGroups[matchedGroupId].push(company);
+            }
+          } else {
+            // Create a new group if no match is found
+            accummulatedGroups[normalizedCompanyName] = [company];
+          }
           // ถ้าไม่มีกลุ่มใน accummulatedGroups ให้สร้างใหม่
-          if (!accummulatedGroups[company.groupId])
-            accummulatedGroups[company.groupId] = [];
-          accummulatedGroups[company.groupId].push(company);
+          // if (!accummulatedGroups[company.groupId])
+          //   accummulatedGroups[company.groupId] = [];
+          // accummulatedGroups[company.groupId].push(company);
           return accummulatedGroups;
         },
         {}
       );
 
-      setGroupedCompanies(grouped);
+      const filteredGrouped = Object.fromEntries(
+        Object.entries(grouped).filter(([groupId, companies]) => companies.length > 1)
+      );
+
+      setGroupedCompanies(filteredGrouped);
 
       // Automatically select a company if all names in the group are the same
       const initialSelected = Object.fromEntries(
@@ -111,6 +142,17 @@ export default function CategorizeForm() {
     alert("Data saved successfully!");
 
     // TODO: Save the company data to the database
+  };
+
+  const normalizeName = (name: string): string => {
+    return name
+      .replace(/บริษัท/g, "") // Remove "บริษัท"
+      .replace(/จำกัด/g, "") // Remove "จำกัด"
+      .replace(/(ประเทศไทย)/g, "")
+      .replace(/()/g, "")
+      .replace(/\(\d+\)/g, "") // Remove identifiers like "(00001)"
+      .trim()
+      .toLowerCase(); // Ensure case-insensitivity
   };
 
   const isSaveDisabled =
