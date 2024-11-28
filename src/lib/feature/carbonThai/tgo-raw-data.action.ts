@@ -117,6 +117,7 @@ export async function addTGORawData(results: any[]) {
       carbonFootprint: result.additionalInfo.carbonFootprint,
       dateOfCertification: result.additionalInfo.dateOfCertification,
       validity: result.additionalInfo.validity,
+      productImageUrl: result.productImage,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));
