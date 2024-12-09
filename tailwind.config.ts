@@ -1,7 +1,7 @@
-const plugin = require("tailwindcss/plugin");
-import type { Config } from "tailwindcss";
+const customPlugin = require("./tailwind-plugin");
 
-const config = {
+/** @type {import('tailwindcss').Config} */
+export default {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -139,20 +139,6 @@ const config = {
         "6xl": "var(--font-size-6xl)",
         "7xl": "var(--font-size-7xl)",
         "8xl": "var(--font-size-8xl)",
-        heading1: "var(--typography-heading-h1)",
-        heading2: "var(--typography-heading-h2)",
-        heading3: "var(--typography-heading-h3)",
-        heading4: "var(--typography-heading-h4)",
-        heading5: "var(--typography-heading-h5)",
-        heading6: "var(--typography-heading-h6)",
-        body1SemiBold: "var(--typography-body-body1-semi-bold)",
-        body2Regular: "var(--typography-body-body2-regular)",
-        body3SemiBold: "var(--typography-body-body3-semi-bold)",
-        body3Regular: "var(--typography-body-body3-regular)",
-        body4SemiBold: "var(--typography-body-body4-semi-bold)",
-        body4Regular: "var(--typography-body-body4-regular)",
-        body5Bold: "var(--typography-body-body5-bold)",
-        body5Regular: "var(--typography-body-body5-regular)",
       },
       boxShadow: {
         "drop-shadow-sm": "var(--shadow-drop-shadow-sm)",
@@ -177,7 +163,5 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config;
-
-export default config;
+  plugins: [customPlugin],
+};
