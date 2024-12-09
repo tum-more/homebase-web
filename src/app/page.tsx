@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,9 +13,30 @@ export default function Home() {
       </p>
       <Card className="shadow-inner m-10">
         <p className="text-red-500 px-16 text-body-5">
-          This is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.Cardsdddd
+          This is body1 with semi-bold style.CardsddddThis is body1 with
+          semi-bold style.CardsddddThis is body1 with semi-bold
+          style.CardsddddThis is body1 with semi-bold style.CardsddddThis is
+          body1 with semi-bold style.CardsddddThis is body1 with semi-bold
+          style.CardsddddThis is body1 with semi-bold style.CardsddddThis is
+          body1 with semi-bold style.CardsddddThis is body1 with semi-bold
+          style.CardsddddThis is body1 with semi-bold style.Cardsdddd
         </p>
       </Card>
+      {/* <Button disabled={true} variant={'filled'} loading={false} iconLeft={<Image src={""} alt="button" />}>
+        ADD
+      </Button> */}
+      <Button disabled={true} variant={"filled"} loading={false}>
+        ADD
+      </Button>
+      <Button variant={"outline"} loading={false}>
+        ADD
+      </Button>
+      <Button disabled={true} variant={"brand"} loading={false}>
+        ADD
+      </Button>
+      <Button variant={"text"} loading={false}>
+        ADD
+      </Button>
     </div>
   );
 }
