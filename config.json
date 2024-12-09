@@ -58,6 +58,17 @@
           "filter": {
             "$type": "spacings"
           }
+        },
+        {
+          "destination": "StyleDictionaryFontSizes.kt",
+          "format": "compose/object",
+          "options": {
+            "className": "StyleDictionaryFontSizes",
+            "packageName": "StyleDictionaryFontSizes"
+          },
+          "filter": {
+            "$type": "font-size"
+          }
         }
       ]
     },
