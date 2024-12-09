@@ -1,0 +1,232 @@
+{
+  "typography": {
+    "heading": {
+      "h1": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "64px",
+          "font-weight": "900",
+          "line-height": "120%",
+          "letter-spacing": "-2.56px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h2": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "48px",
+          "font-weight": "900",
+          "line-height": "120%",
+          "letter-spacing": "-1.92px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h3": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "36px",
+          "font-weight": "900",
+          "line-height": "120%",
+          "letter-spacing": "-1.44px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h3_extrabold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "36px",
+          "font-weight": "800",
+          "line-height": "120%",
+          "letter-spacing": "-1.44px"
+        },
+        "$type": "typography"
+      },
+      "h4": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "32px",
+          "font-weight": "900",
+          "line-height": "120%",
+          "letter-spacing": "-1.28px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h4_bold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "32px",
+          "font-weight": "700",
+          "line-height": "120%"
+        },
+        "$type": "typography"
+      },
+      "h5": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "24px",
+          "font-weight": "900",
+          "line-height": "150%",
+          "letter-spacing": "-0.96px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h5_bold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "24px",
+          "font-weight": "700",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "h6_bold": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "20px",
+          "font-weight": "700",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "h6_black": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "20px",
+          "font-weight": "900",
+          "line-height": "120%",
+          "letter-spacing": "-0.8px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h7_black": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "18px",
+          "font-weight": "900",
+          "line-height": "150%",
+          "letter-spacing": "-0.72px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h7_semi_bold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "18px",
+          "font-weight": "600",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "h8_black": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "16px",
+          "font-weight": "900",
+          "line-height": "150%",
+          "letter-spacing": "-0.64px",
+          "text-transform": "uppercase"
+        },
+        "$type": "typography"
+      },
+      "h8_bold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "16px",
+          "font-weight": "700",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "h8_semi_bold": {
+        "$value": {
+          "font-family": "'Archivo', sans-serif",
+          "font-size": "16px",
+          "font-weight": "600",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      }
+    },
+    "body": {
+      "body1_semi_bold": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "20px",
+          "font-weight": "600",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body2_regular": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "18px",
+          "font-weight": "400",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body3_semi_bold": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "16px",
+          "font-weight": "600",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body3_regular": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "16px",
+          "font-weight": "400",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body4_semi_bold": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "14px",
+          "font-weight": "600",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body4_regular": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "14px",
+          "font-weight": "400",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body5_bold": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "12px",
+          "font-weight": "700",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      },
+      "body5_regular": {
+        "$value": {
+          "font-family": "'Inter', sans-serif",
+          "font-size": "12px",
+          "font-weight": "400",
+          "line-height": "150%"
+        },
+        "$type": "typography"
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "source": ["tokens/**/*.json"],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "buildPath": "build/css/",
+      "files": [
+        {
+          "destination": "_variables.css",
+          "format": "css/variables"
+        }
+      ]
+    },
+    "compose": {
+      "transformGroup": "compose",
+      "buildPath": "build/compose/",
+      "files": [
+        {
+          "destination": "StyleDictionaryTypography.kt",
+          "format": "compose/object",
+          "options": {
+            "className": "StyleDictionaryTypography",
+            "packageName": "StyleDictionaryTypography"
+          },
+          "filter": {
+            "$type": "typography"
+          }
+        },
+        {
+          "destination": "StyleDictionaryColors.kt",
+          "format": "compose/object",
+          "options": {
+            "className": "StyleDictionaryColors",
+            "packageName": "StyleDictionaryColors"
+          },
+          "filter": {
+            "$type": "color"
+          }
+        }
+      ]
+    },
+    "ios": {
+      "transformGroup": "ios",
+      "buildPath": "build/ios/",
+      "files": [
+        {
+          "destination": "StyleDictionaryTypography.h",
+          "format": "ios/static.h",
+          "options": {
+            "className": "StyleDictionaryTypography",
+            "type": "StyleDictionaryTypography"
+          },
+          "filter": {
+            "$type": "typography"
+          }
+        },
+        {
+          "destination": "StyleDictionaryTypography.m",
+          "format": "ios/static.m",
+          "options": {
+            "className": "StyleDictionaryTypography",
+            "type": "StyleDictionaryTypography"
+          },
+          "filter": {
+            "$type": "typography"
+          }
+        },
+        {
+          "destination": "StyleDictionaryColors.h",
+          "format": "ios/static.h",
+          "options": {
+            "className": "StyleDictionaryColors",
+            "type": "StyleDictionaryColors"
+          },
+          "filter": {
+            "$type": "color"
+          }
+        },
+        {
+          "destination": "StyleDictionaryColors.m",
+          "format": "ios/static.m",
+          "options": {
+            "className": "StyleDictionaryColors",
+            "type": "StyleDictionaryColors"
+          },
+          "filter": {
+            "$type": "color"
+          }
+        }
+      ]
+    },
+    "ios-swift": {
+      "transformGroup": "ios-swift",
+      "buildPath": "build/ios-swift/",
+      "files": [
+        {
+          "destination": "StyleDictionaryTypography+Class.swift",
+          "format": "ios-swift/class.swift",
+          "options": {
+            "className": "StyleDictionaryTypographyClass"
+          }
+        },
+        {
+          "destination": "StyleDictionaryColors+Class.swift",
+          "format": "ios-swift/class.swift",
+          "options": {
+            "className": "StyleDictionaryColorsClass"
+          }
+        }
+      ]
+    }
+  }
+}

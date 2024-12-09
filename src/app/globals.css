@@ -1,3 +1,4 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +6,115 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-archivo: "Archivo", sans-serif;
+  --font-family-body: "Inter", sans-serif;
+  --colors-brand-50: #fff3f2;
+  --colors-brand-100: #fee6e4;
+  --colors-brand-200: #fdcbc6;
+  --colors-brand-300: #fdaaa1;
+  --colors-brand-400: #fc8372;
+  --colors-brand-500: #fb4700;
+  --colors-brand-600: #e14000;
+  --colors-brand-700: #c23700;
+  --colors-brand-800: #9f2d00;
+  --colors-brand-900: #702000;
+  --colors-brand-a10: #fb4700;
+  --colors-sky-50: #f4fefe;
+  --colors-sky-100: #e8fdfe;
+  --colors-sky-200: #cffbfd;
+  --colors-sky-300: #b2f8fb;
+  --colors-sky-400: #8ff6fa;
+  --colors-sky-500: #61f4f9;
+  --colors-sky-600: #57dadf;
+  --colors-sky-700: #4bbdc1;
+  --colors-sky-800: #3d9a9d;
+  --colors-sky-900: #2b6d6f;
+  --colors-gray-50: #e4e4e4;
+  --colors-gray-100: #c8c8c8;
+  --colors-gray-200: #adadad;
+  --colors-gray-300: #999999;
+  --colors-gray-400: #888888;
+  --colors-gray-500: #7b7b7b;
+  --colors-gray-600: #6e6e6e;
+  --colors-gray-700: #4e4e4e;
+  --colors-gray-800: #2e2e2e;
+  --colors-gray-900: #191515;
+  --colors-gray-a10: #191515;
+  --colors-red-50: #fce6e6;
+  --colors-red-100: #f5b0b0;
+  --colors-red-200: #f18a8a;
+  --colors-red-300: #ea5454;
+  --colors-red-400: #e63333;
+  --colors-red-500: #e00000;
+  --colors-red-600: #cc0000;
+  --colors-red-700: #9f0000;
+  --colors-red-800: #7b0000;
+  --colors-red-900: #5e0000;
+  --colors-yellow-50: #fff8e6;
+  --colors-yellow-100: #ffe9b0;
+  --colors-yellow-200: #ffde8a;
+  --colors-yellow-300: #ffcf54;
+  --colors-yellow-400: #ffc633;
+  --colors-yellow-500: #ffb800;
+  --colors-yellow-600: #e8a700;
+  --colors-yellow-700: #b45309;
+  --colors-yellow-800: #8c6500;
+  --colors-yellow-900: #6b4d00;
+  --colors-green-50: #e6f8e9;
+  --colors-green-100: #b0e9ba;
+  --colors-green-200: #8ade98;
+  --colors-green-300: #54cf69;
+  --colors-green-400: #33c64c;
+  --colors-green-500: #00b81f;
+  --colors-green-600: #00a71c;
+  --colors-green-700: #008316;
+  --colors-green-800: #006511;
+  --colors-green-900: #004d0d;
+  --colors-lime-50: #f7fee7;
+  --colors-lime-100: #ecfccb;
+  --colors-lime-200: #d9f99d;
+  --colors-lime-300: #bef254;
+  --colors-lime-400: #a3e635;
+  --colors-lime-500: #84cc16;
+  --colors-lime-600: #65a30d;
+  --colors-lime-700: #4d7c0f;
+  --colors-lime-800: #3f6212;
+  --colors-lime-900: #365314;
+  --colors-blue-50: #e9f7fc;
+  --colors-blue-100: #b9e5f4;
+  --colors-blue-200: #8ad7f1;
+  --colors-blue-300: #68c7e8;
+  --colors-blue-400: #4bbde3;
+  --colors-blue-500: #1eacdc;
+  --colors-blue-600: #1b9dc8;
+  --colors-blue-700: #157a9c;
+  --colors-blue-800: #115f79;
+  --colors-blue-900: #0d485c;
+  --colors-white: #ffffff;
+  --colors-black: #000000;
+  --typography-heading-h1: 64px;
+  --typography-heading-h2: 48px;
+  --typography-heading-h3: 36px;
+  --typography-heading-h3-extrabold: 36px;
+  --typography-heading-h4: 32px;
+  --typography-heading-h4-bold: 32px;
+  --typography-heading-h5: 24px;
+  --typography-heading-h5-bold: 24px;
+  --typography-heading-h6-bold: 20px;
+  --typography-heading-h6-black: 20px;
+  --typography-heading-h7-black: 18px;
+  --typography-heading-h7-semi-bold: 18px;
+  --typography-heading-h8-black: 16px;
+  --typography-heading-h8-bold: 16px;
+  --typography-heading-h8-semi-bold: 16px;
+  --typography-body-body1-semi-bold: 20px;
+  --typography-body-body2-regular: 18px;
+  --typography-body-body3-semi-bold: 16px;
+  --typography-body-body3-regular: 16px;
+  --typography-body-body4-semi-bold: 14px;
+  --typography-body-body4-regular: 14px;
+  --typography-body-body5-bold: 12px;
+  --typography-body-body5-regular: 12px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,13 +125,185 @@
 }
 
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
+  font-family: var(--font-family-body);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+h1 {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h1);
+  font-weight: 900;
+  line-height: 120%;
+  letter-spacing: -2.56px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h2);
+  font-weight: 900;
+  line-height: 120%;
+  letter-spacing: -1.92px;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h3);
+  font-weight: 900;
+  line-height: 120%;
+  letter-spacing: -1.44px;
+  text-transform: uppercase;
+}
+
+h3.extrabold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h3-extrabold);
+  font-weight: 800;
+  line-height: 120%;
+  letter-spacing: -1.44px;
+}
+
+h4 {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h4);
+  font-weight: 900;
+  line-height: 120%;
+  letter-spacing: -1.28px;
+  text-transform: uppercase;
+}
+
+h4.bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h4-bold);
+  font-weight: 700;
+  line-height: 120%;
+}
+
+h5 {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h5);
+  font-weight: 900;
+  line-height: 150%;
+  letter-spacing: -0.96px;
+  text-transform: uppercase;
+}
+
+h5.bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h5-bold);
+  font-weight: 700;
+  line-height: 150%;
+}
+
+h6.bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h6-bold);
+  font-weight: 700;
+  line-height: 150%;
+}
+
+h6.black {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h6-black);
+  font-weight: 900;
+  line-height: 120%;
+  letter-spacing: -0.8px;
+  text-transform: uppercase;
+}
+
+h7.black {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h7-black);
+  font-weight: 900;
+  line-height: 150%;
+  letter-spacing: -0.72px;
+  text-transform: uppercase;
+}
+
+h7.semi-bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h7-semi-bold);
+  font-weight: 600;
+  line-height: 150%;
+}
+
+h8.black {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h8-black);
+  font-weight: 900;
+  line-height: 150%;
+  letter-spacing: -0.64px;
+  text-transform: uppercase;
+}
+
+h8.bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h8-bold);
+  font-weight: 700;
+  line-height: 150%;
+}
+
+h8.semi-bold {
+  font-family: var(--font-archivo);
+  font-size: var(--typography-heading-h8-semi-bold);
+  font-weight: 600;
+  line-height: 150%;
+}
+
+body1.semi-bold {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body1-semi-bold);
+  font-weight: 600;
+  line-height: 150%;
+}
+
+body2.regular {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body2-regular);
+  font-weight: 400;
+  line-height: 150%;
+}
+
+body3.semi-bold {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body3-semi-bold);
+  font-weight: 600;
+  line-height: 150%;
+}
+
+body3.regular {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body3-regular);
+  font-weight: 400;
+  line-height: 150%;
+}
+
+body4.semi-bold {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body4-semi-bold);
+  font-weight: 600;
+  line-height: 150%;
+}
+
+body4.regular {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body4-regular);
+  font-weight: 400;
+  line-height: 150%;
+}
+
+body5.bold {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body5-bold);
+  font-weight: 700;
+  line-height: 150%;
+}
+
+body5.regular {
+  font-family: var(--font-family-body);
+  font-size: var(--typography-body-body5-regular);
+  font-weight: 400;
+  line-height: 150%;
 }
