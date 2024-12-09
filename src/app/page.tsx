@@ -11,8 +11,8 @@ export default function Home() {
         This is body1 with semi-bold style.
       </p>
       <Card className="shadow-drop-shadow-sm m-10">
-        <p className="text-body1SemiBold font-body font-semibold text-red-500">
-          This is body1 with semi-bold style.Cardsdddd
+        <p className="text-body1SemiBold font-body font-semibold text-red-500 px-16">
+          This is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.CardsddddThis is body1 with semi-bold style.Cardsdddd
         </p>
       </Card>
     </div>

@@ -97,6 +97,16 @@
   --shadow-drop-shadow-xl: 0 0 0 #000000;
   --shadow-drop-shadow2xl: 0 0 0 #000000;
   --shadow-drop-shadow-inner: 0 0 0 #000000;
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-32: 128px;
   --typography-heading-h1: 64px;
   --typography-heading-h2: 48px;
   --typography-heading-h3: 36px;

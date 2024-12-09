@@ -47,6 +47,17 @@
           "filter": {
             "$type": "shadow"
           }
+        },
+        {
+          "destination": "StyleDictionarySpacings.kt",
+          "format": "compose/object",
+          "options": {
+            "className": "StyleDictionarySpacings",
+            "packageName": "StyleDictionarySpacings"
+          },
+          "filter": {
+            "$type": "spacings"
+          }
         }
       ]
     },
