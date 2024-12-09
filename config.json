@@ -36,6 +36,17 @@
           "filter": {
             "$type": "color"
           }
+        },
+        {
+          "destination": "StyleDictionaryShadows.kt",
+          "format": "compose/object",
+          "options": {
+            "className": "StyleDictionaryShadows",
+            "packageName": "StyleDictionaryShadows"
+          },
+          "filter": {
+            "$type": "shadow"
+          }
         }
       ]
     },
