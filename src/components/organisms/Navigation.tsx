@@ -17,7 +17,7 @@ import { MenuItemsType } from "@/share/models/general.model";
 // ];
 const Menus: MenuItemsType[] = [];
 
-export default function Navigation() {
+export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
