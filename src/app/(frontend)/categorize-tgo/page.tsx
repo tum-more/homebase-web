@@ -12,7 +12,7 @@ export default function CategorizeScreen() {
 
   return (
     <LoadingProvider>
-      <div>
+      <div className="min-h-screen">
         <h1 className="text-xl sm:text-2xl text-center font-bold">
           Categorize
         </h1>
