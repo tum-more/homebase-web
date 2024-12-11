@@ -4,23 +4,15 @@ import React, { useState, useEffect } from "react";
 import {
   addCompanyData,
   checkIfCompanyExists,
+  deleteAllCompanyData,
   getTGOData,
   updateTGOData,
 } from "@/lib/feature/categorize/categorize-data.action";
 import { useLoading } from "@/share/providers/loadingContextProvider";
 import stringSimilarity from "string-similarity";
-
-export type Company = {
-  id: string;
-  companyName: string;
-  location: string;
-  industry: string;
-  website: string;
-  source: string;
-  groupId: string;
-  selected?: boolean;
-  deactivated?: boolean;
-};
+import { deleteAllTGORawData } from "@/lib/feature/carbonThai/tgo-raw-data.action";
+import { Company } from "@/share/models/company.model";
+import { TGORawDataTableType } from "@/lib/feature/carbonThai/tgo-raw-data.schema";
 
 interface CategorizeFormProps {
   onChecking: (noneChecked: boolean) => void;
@@ -94,21 +86,20 @@ export default function CategorizeForm({
   }, [exactMatch, nonExactMatch, onCountsChange]);
 
   const fetchData = async () => {
+    // await deleteAllTGORawData();
+    // await deleteAllCompanyData();
     setLoading(true);
     try {
-      const tgoData = await getTGOData();
+      const tgoData: TGORawDataTableType[] = await getTGOData();
 
-      const combinedData: Company[] = [
-        ...tgoData.map((item: any) => ({
-          id: `tgo-${item.id}`,
-          companyName: item.companyName,
-          source: item.source,
-          groupId: item.companyName.toLowerCase(),
-          location: item.location,
-          industry: item.industry,
-          website: item.website,
-        })),
-      ];
+      const combinedData: Company[] = tgoData.map((item) => ({
+        id: `tgo-${item.id}`,
+        companyName: item.companyName ?? '',
+        source: "tgo",
+        groupId: item?.companyName?.toLowerCase() ?? '',
+        location: item.location ?? '',
+        website: item.website ?? '',
+      }));
 
       const grouped = groupSimilarCompanies(combinedData, 0.8);
 
@@ -139,7 +130,7 @@ export default function CategorizeForm({
       const initialSelected = Object.fromEntries(
         Object.entries(exactMatches).map(([groupId, companies]) => [
           groupId,
-          companies[0] || null, // เริ่มต้นเลือกแค่บริษัทแรกในกลุ่ม
+          companies[0] || null, // เลือกแค่บริษัทแรกในกลุ่ม
         ])
       );
 
@@ -156,7 +147,7 @@ export default function CategorizeForm({
   }, [setLoading, setError]);
 
   const handleSelect = (groupId: string, companyId: string) => {
-    setSelectedCompanies((prev: any) => {
+    setSelectedCompanies((prev) => {
       const selectedCompany = groupedCompanies[groupId]?.find(
         (company: Company) => company.id === companyId
       );
@@ -228,10 +219,10 @@ export default function CategorizeForm({
       return;
     }
 
-    console.log("handleSave");
-    try {
-      setSaving(true);
+    setSaving(true);
 
+    console.log("saving: ", saving);
+    try {
       const companiesToInsert = Object.entries(groupedCompanies)
         .filter(([groupId]) => selectedCompanies[groupId])
         .map(([groupId, group]) => {
@@ -244,7 +235,6 @@ export default function CategorizeForm({
             companyName: trimCompanyName(group[0]?.companyName),
             location: group[0]?.location,
             website: group[0]?.website,
-            industry: group[0]?.industry,
             relatedCompanies,
           };
         });
@@ -255,6 +245,8 @@ export default function CategorizeForm({
           group.map((record) => ({
             companyName: record.companyName,
             companyId: record.id.toString(),
+            location: record.location,
+            website: record.website,
             relatedCompanies: "",
           }))
         ),
@@ -370,7 +362,6 @@ export default function CategorizeForm({
                     company.location
                   }`}
 
-                  {/* ปุ่ม Deactivated หรือ Undeactivated */}
                   {company.deactivated ? (
                     <button
                       onClick={() => handleUndeactivated(groupId, company.id)}
@@ -393,14 +384,14 @@ export default function CategorizeForm({
         </div>
       ))}
       {(exactMatch > 0 || nonExactMatch > 0) && (
-        <div className="fixed bottom-0 left-0 w-full bg-white shadow-lg border-t border-gray-200 z-50 p-4 flex justify-center">
+        <div className="fixed bottom-0 left-0 w-full bg-white-500 shadow-lg border-t border-gray-200 z-50 p-4 flex justify-center">
           <button
             onClick={handleSave}
             disabled={saving}
             className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded ${
               loading
                 ? "opacity-50 cursor-not-allowed"
-                : "hover:bg-blue-500 hover:text-white"
+                : "hover:bg-blue-500 hover:text-white-500"
             }`}
           >
             {loading ? "Loading..." : "Save"}

@@ -5,13 +5,25 @@ import { TGORawDataTable } from "@/lib/db/schema";
 import { CompanyDataTable } from "@/lib/db/schema/company-data.db.schema";
 import { GreensealRawDataTable } from "@/lib/db/schema/greenseal-raw-data.db.schema";
 import { ProductTable } from "@/lib/db/schema/product.db.schema";
+import { TGORawDataTableSchema } from "../carbonThai/tgo-raw-data.schema";
 
 export async function getTGOData() {
   const result = await mysql
     .select()
     .from(TGORawDataTable)
     .where(isNull(TGORawDataTable.companyId));
-  return result.map((item) => ({ ...item, source: "TGO" }));
+
+  const validatedResult = result.map((item) => {
+    const parsedItem = TGORawDataTableSchema.safeParse(item);
+    if (!parsedItem.success) {
+      throw new Error(
+        `Validation failed for TGO data: ${JSON.stringify(parsedItem.error)}`
+      );
+    }
+    return { ...parsedItem.data, source: "TGO" };
+  });
+
+  return validatedResult;
 }
 
 export async function getGreensealData() {
@@ -23,7 +35,6 @@ export async function addCompanyData(results: any[]) {
   try {
     const values = results.map((result) => ({
       companyName: result.companyName,
-      industry: result.industry,
       location: result.location,
       website: result.website,
       relatedCompanies: result.relatedCompanies,
@@ -75,28 +86,6 @@ export async function updateTGOData(
   }
 }
 
-export async function addProduct(records: any[], companyIds: string[]) {
-  try {
-    const productValues: any = records.map((record, index) => ({
-      certificationType: record.certificationType,
-      dateOfCertification: record.dateOfCertification,
-      validity: record.validity,
-      score: record.score,
-      carbonFootprint: record.carbonFootprint,
-      productServiceName: record.productServiceName,
-      productServiceDescription: record.productServiceDescription,
-      environmentDescription: record.environmentDescription,
-      companyId: companyIds[index],
-    }));
-
-    await mysql.insert(ProductTable).values(productValues);
-  } catch (error: any) {
-    throw new Error(
-      "Error occurred while adding product data: " + error.message
-    );
-  }
-}
-
 export async function deleteAllCompanyData() {
   try {
     await mysql.delete(CompanyDataTable);
@@ -124,12 +113,21 @@ export const checkIfCompanyExists = async (
 
 export async function processTgoToProduct() {
   try {
+    await mysql.delete(ProductTable);
     const tgoData = await mysql
       .select()
       .from(TGORawDataTable)
       .where(isNotNull(TGORawDataTable.companyId));
 
     for (const tgo of tgoData) {
+      const parsedTgo = TGORawDataTableSchema.safeParse(tgo);
+      if (!parsedTgo.success) {
+        console.warn(
+          `Validation failed for TGO data: ${JSON.stringify(parsedTgo.error)}`
+        );
+        continue;
+      }
+
       const {
         certificationType,
         dateOfCertification,
@@ -140,9 +138,11 @@ export async function processTgoToProduct() {
         productServiceDescription,
         environmentDescription,
         companyId,
-      } = tgo;
+        industry,
+        productImageUrl,
+      } = parsedTgo.data;
 
-      if (companyId === null) {
+      if (!companyId) {
         console.warn(`companyId is null, skipping this record.`);
         continue;
       }
@@ -160,16 +160,18 @@ export async function processTgoToProduct() {
         continue;
       }
 
-      const productValues: any = {
+      const productValues = {
+        productServiceName,
+        productServiceDescription,
+        industry,
         certificationType,
         dateOfCertification,
         validity,
         score,
         carbonFootprint,
-        productServiceName,
-        productServiceDescription,
         environmentDescription,
         companyId,
+        productImageUrl,
       };
 
       console.log(`Inserting product for companyId: ${companyId}`);
@@ -180,3 +182,94 @@ export async function processTgoToProduct() {
     throw new Error("Error adding data to product table: " + error.message);
   }
 }
+
+// export async function processTgoToProduct() {
+//   try {
+//     const tgoData = await mysql
+//       .select()
+//       .from(TGORawDataTable)
+//       .where(isNotNull(TGORawDataTable.companyId));
+
+//     for (const tgo of tgoData) {
+//       const {
+//         certificationType,
+//         dateOfCertification,
+//         validity,
+//         score,
+//         carbonFootprint,
+//         productServiceName,
+//         productServiceDescription,
+//         environmentDescription,
+//         companyId,
+//         industry,
+//       } = tgo;
+
+//       if (companyId === null) {
+//         console.warn(`companyId is null, skipping this record.`);
+//         continue;
+//       }
+
+//       const companyExists = await mysql
+//         .select()
+//         .from(CompanyDataTable)
+//         .where(eq(CompanyDataTable.id, companyId))
+//         .limit(1);
+
+//       if (companyExists.length === 0) {
+//         console.warn(
+//           `No company found with ID ${companyId}. Skipping this record.`
+//         );
+//         continue;
+//       }
+
+//       const productValues: any = {
+//         productServiceName,
+//         productServiceDescription,
+//         industry,
+//         certificationType,
+//         dateOfCertification,
+//         validity,
+//         score,
+//         carbonFootprint,
+//         environmentDescription,
+//         companyId,
+//       };
+
+//       console.log(`Inserting product for companyId: ${companyId}`);
+//       await mysql.insert(ProductTable).values(productValues);
+//     }
+//   } catch (error: any) {
+//     console.error("Error adding data to product table:", error);
+//     throw new Error("Error adding data to product table: " + error.message);
+//   }
+// }
+
+// export async function addProduct(records: any[], companyIds: string[]) {
+//   try {
+//     const productValues: any = records.map((record, index) => ({
+//       certificationType: record.certificationType,
+//       dateOfCertification: record.dateOfCertification,
+//       validity: record.validity,
+//       score: record.score,
+//       carbonFootprint: record.carbonFootprint,
+//       productServiceName: record.productServiceName,
+//       productServiceDescription: record.productServiceDescription,
+//       environmentDescription: record.environmentDescription,
+//       companyId: companyIds[index],
+//     }));
+
+//     await mysql.insert(ProductTable).values(productValues);
+//   } catch (error: any) {
+//     throw new Error(
+//       "Error occurred while adding product data: " + error.message
+//     );
+//   }
+// }
+
+// export async function getTGOData() {
+//   const result = await mysql
+//     .select()
+//     .from(TGORawDataTable)
+//     .where(isNull(TGORawDataTable.companyId));
+//   return result.map((item) => ({ ...item, source: "TGO" }));
+// }

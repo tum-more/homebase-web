@@ -27,7 +27,7 @@ export default function ProcessDataForm() {
           className={`bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded ${
             loading
               ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-blue-500 hover:text-white"
+              : "hover:bg-blue-500 hover:text-white-500"
           }`}
         >
           {loading ? "Processing..." : "Process Data"}

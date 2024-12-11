@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "4ff961df-fcc7-4286-b73f-c66e77c74795",
+  "id": "0d7258bf-903d-4f18-beef-b563dc59480a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "bcorp_raw_data_table": {
@@ -104,13 +104,6 @@
         },
         "company_name": {
           "name": "company_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "industry": {
-          "name": "industry",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
@@ -457,6 +450,27 @@
           "notNull": true,
           "autoincrement": true
         },
+        "product_service_name": {
+          "name": "product_service_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_service_description": {
+          "name": "product_service_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "industry": {
+          "name": "industry",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "certification_type": {
           "name": "certification_type",
           "type": "varchar(100)",
@@ -488,20 +502,6 @@
         "carbon_footprint": {
           "name": "carbon_footprint",
           "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "product_service_name": {
-          "name": "product_service_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "product_service_description": {
-          "name": "product_service_description",
-          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
