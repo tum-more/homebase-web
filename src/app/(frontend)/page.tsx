@@ -1,6 +1,7 @@
 "use client";
 
 import { CompanyCard } from "@/components/organisms";
+import Pagination from "@/components/organisms/Pagination";
 import {
   getCompanies,
   getCompanyTotalPagination,
@@ -15,17 +16,19 @@ import { useEffect, useState } from "react";
 function HomeContent() {
   const { loading, setLoading, error, setError } = useLoading();
   const [companies, setCompanies] = useState<CompanyWithIndustry[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const itemsPerPage = 8;
 
   useEffect(() => {
     async function fetchCompanies() {
       try {
         setLoading(true);
 
-        const data = await getCompanies();
+        const data = await getCompanies(currentPage, itemsPerPage);
         setCompanies(data);
 
-        const pages = await getCompanyTotalPagination();
+        const pages = await getCompanyTotalPagination(itemsPerPage);
         setTotalPages(pages);
         console.log("Total Pages:", pages);
       } catch (error) {
@@ -37,7 +40,11 @@ function HomeContent() {
     }
 
     fetchCompanies();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -52,11 +59,18 @@ function HomeContent() {
                 />
               ))}
             </div>
+
             <div className="mt-4 text-center">
               <p className="text-gray-700">
                 Total Pages: <span className="font-bold">{totalPages}</span>
               </p>
             </div>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </>
         )}
       </div>
