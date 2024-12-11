@@ -22,7 +22,6 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         black: "var(--colors-black)",
-        white: "var(--colors-white)",
         brand: {
           "50": "var(--colors-brand-50)",
           "100": "var(--colors-brand-100)",
@@ -35,6 +34,7 @@ export default {
           "800": "var(--colors-brand-800)",
           "900": "var(--colors-brand-900)",
           a10: "var(--colors-brand-a10)",
+          "500-opacity": "var(--colors-brand-500-opcaity)",
         },
         sky: {
           "50": "var(--colors-sky-50)",
@@ -120,6 +120,13 @@ export default {
           "700": "var(--colors-blue-700)",
           "800": "var(--colors-blue-800)",
           "900": "var(--colors-blue-900)",
+        },
+        white: {
+          "100": "var(--colors-white-100)",
+          "200": "var(--colors-white-200)",
+          "300": "var(--colors-white-300)",
+          "400": "var(--colors-white-400)",
+          "500": "var(--colors-white-500)",
         },
       },
       fontFamily: {

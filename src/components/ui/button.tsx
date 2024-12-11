@@ -9,12 +9,12 @@ const buttonVariants = cva("relative inline-flex items-center justify-center", {
   variants: {
     variant: {
       filled:
-        "py-3 px-6 bg-gray-900 rounded-[32px] text-white hover:bg-gray-900 hover:opacity-50 active:bg-gray-900 active:opacity-100 disabled:bg-gray-900  disabled:opacity-20 disabled:pointer-events-none",
+        "py-3 px-6 bg-gray-900 rounded-[32px] text-white-500 hover:bg-gray-800 active:bg-gray-900 active:opacity-100 disabled:bg-gray-a10 disabled:text-white-300 disabled:opacity-20 disabled:pointer-events-none",
       outline:
-        "py-3 px-6 bg-gray-900 rounded-[32px] text-white border border-white hover:opacity-50 active:bg-gray-900 active:opacity-100 disabled:bg-gray-900  disabled:opacity-20 disabled:pointer-events-none",
+        "py-3 px-6 bg-gray-900 rounded-[32px] text-white-500 border border-white-500 hover:opacity-30 active:bg-gray-900 active:opacity-100 disabled:bg-gray-900  disabled:opacity-20 disabled:pointer-events-none",
       brand:
-        "py-3 px-6 bg-brand-500 rounded-[32px] text-white hover:bg-brand-700 active:bg-brand-500 disabled:bg-brand-500 disabled:opacity-20 disabled:pointer-events-none",
-      text: "text-brand-500 py-0 px-0",
+        "py-3 px-6 bg-brand-500 rounded-[32px] text-white-500 hover:bg-brand-700 active:bg-brand-500 disabled:bg-brand-500-opacity disabled:pointer-events-none",
+      text: "text-brand-500 rounded-[22px] py-[6px] px-2 hover:bg-brand-50 active:bg-transparent disabled:bg-transparent disabled:opacity-60 disabled:pointer-events-none",
     },
   },
   defaultVariants: {
@@ -59,7 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
         {!loading && iconLeft && <span>{iconLeft}</span>}
 
-        {children}
+        <span className="px-1">{children}</span>
 
         {!loading && iconRight && <span>{iconRight}</span>}
       </Comp>

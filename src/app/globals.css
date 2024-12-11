@@ -17,6 +17,7 @@
   --colors-brand-800: #9f2d00;
   --colors-brand-900: #702000;
   --colors-brand-a10: #fb4700;
+  --colors-brand-500-opcaity: rgba(251, 71, 0, 0.2);
   --colors-sky-50: #f4fefe;
   --colors-sky-100: #e8fdfe;
   --colors-sky-200: #cffbfd;
@@ -88,8 +89,13 @@
   --colors-blue-700: #157a9c;
   --colors-blue-800: #115f79;
   --colors-blue-900: #0d485c;
-  --colors-white: #ffffff;
-  --colors-black: #000000;
+  --colors-white-100: rgba(255, 255, 255, 0.1);
+  --colors-white-200: rgba(255, 255, 255, 0.3);
+  --colors-white-300: rgba(255, 255, 255, 0.5);
+  --colors-white-400: rgba(255, 255, 255, 0.8);
+  --colors-white-500: #FFFFFF;
+  --colors-white: #FFFFFF;
+  --colors-black: #242424;
   --shadow-drop-shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
   --shadow-drop-shadow-base: 0px 1px 2px 0px rgba(0, 0, 0, 0.06), 0px 1px 3px 0px rgba(0, 0, 0, 0.10);
   --shadow-drop-shadow-md: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.10);
