@@ -1,5 +1,4 @@
-import { Footer } from "@/components/organisms/Footer";
-import Navigation from "@/components/organisms/Navigation";
+import { Navigation, Footer } from "@/components/organisms";
 
 export default function FrontendLayout({
   children,

@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import IconButton from "../atoms/IconButton";
 import { MenuItemsType } from "@/share/models/general.model";
+import IconButton from "../atoms/IconButton";
 
 type SocialType = {
   facebook: string;

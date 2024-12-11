@@ -17,7 +17,7 @@ import { MenuItemsType } from "@/share/models/general.model";
 // ];
 const Menus: MenuItemsType[] = [];
 
-export default function Navigation() {
+export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -27,10 +27,11 @@ export default function Navigation() {
         <Link href="/">
           <Image
             src="/images/logo-black@3x.png"
-            alt="Logo"
+            alt="Homebase-media-Logo"
             width={100}
             height={10}
             className="mr-8"
+            priority
           />
         </Link>
 
