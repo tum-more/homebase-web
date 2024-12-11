@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { CompanyCard } from "@/components/organisms";
+import { Button, Card } from "@/components/ui/";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,10 +7,12 @@ export default function Home() {
     <div>
       <div
         className="relative w-full sm:h-[calc(100vh-51px)] h-[calc(100vh-71px)] bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/images/mock/mock-banner.png')"}}
+        style={{ backgroundImage: "url('/images/mock/mock-banner.png')" }}
       >
         <h1 className="text-white text-4xl">Welcome</h1>
       </div>
+
+      <CompanyCard />
 
       <div className="container mx-auto max-w-screen-xl text-start">
         <h1 className="text-heading-7-semi-bold">Hello</h1>

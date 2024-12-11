@@ -1,7 +1,7 @@
 import { Company } from "@/share/models/company.model";
 
 interface Props {
-  data: Company;
+  data?: Company;
   className?: string;
   onPress?: () => void;
 }
