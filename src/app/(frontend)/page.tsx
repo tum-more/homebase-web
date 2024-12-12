@@ -28,7 +28,7 @@ export default function Home() {
               <Button
                 disabled={false}
                 variant={"brand"}
-                className="h-[48]"
+                className="h-[48px]"
                 iconLeft={
                   <Image
                     src={"/images/icons/Chevron-right.png"}
@@ -44,7 +44,7 @@ export default function Home() {
             <img
               src="/images/Fixed-aspect-ratio-spacer.png"
               alt="get-product-certificate"
-              className="w-[588]"
+              className="w-[588px]"
             />
           </div>
         </div>
