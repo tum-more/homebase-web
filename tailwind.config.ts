@@ -23,6 +23,8 @@ export default {
         foreground: "hsl(var(--foreground))",
         black: "var(--colors-black)",
         brand: {
+          primary: 'var(--colors-brand-500)',
+          subtle: 'var(--colors-brand-50)',
           "50": "var(--colors-brand-50)",
           "100": "var(--colors-brand-100)",
           "200": "var(--colors-brand-200)",
@@ -60,6 +62,7 @@ export default {
           "800": "var(--colors-gray-800)",
           "900": "var(--colors-gray-900)",
           a10: "var(--colors-gray-a10)",
+          tertiary: "var(--colors-gray-600)",
         },
         red: {
           "50": "var(--colors-red-50)",
@@ -167,6 +170,14 @@ export default {
         12: "var(--spacing-12)",
         16: "var(--spacing-16)",
         32: "var(--spacing-32)",
+      },
+      rounded: {
+        base: "var(--rounded-base)",
+        lg: "var(--rounded-lg)",
+        xl: "var(--rounded-xl)",
+        "2xl": "var(--rounded-2xl)",
+        "3xl": "var(--rounded-3xl)",
+        full: "var(--rounded-full)",
       },
     },
   },

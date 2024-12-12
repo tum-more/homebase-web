@@ -8,7 +8,7 @@ interface Props {
 
 export function CompanyCard(props: Props) {
   return (
-    <div className="px-6 py-8 border border-[#DCDCDC] rounded-[12px] text-start">
+    <div className={`${props.className} px-6 py-8 border shadow-drop-shadow-base border-[#DCDCDC] rounded-[12px] text-start`}>
       <h2 className="text-heading-7-semi-bold !normal-case">
         {props.data.companyName}
       </h2>
