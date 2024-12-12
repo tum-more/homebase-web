@@ -1,8 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { LoadingProvider } from "@/share/providers/loadingContextProvider";
 import CompanyListView from "./CompanyListView";
 import Image from "next/image";
@@ -11,23 +9,18 @@ export default function Home() {
   return (
     <LoadingProvider>
       <div>
-        <div className="relative w-full sm:h-[calc(100vh-71px)] bg-cover bg-center flex items-center justify-between">
+        <div className="relative w-full sm:h-[calc(100vh-71px)] bg-cover bg-center flex justify-between pt-6">
           <div className="container mx-auto max-w-screen-xl text-start flex sm:flex-row flex-col items-center">
-            <div>
+            <div
+              className="pb-12"
+              >
               <p
-                className="sm:text-heading-2 text-heading-4-bold bold"
-                style={{
-                  paddingBottom: "var(--spacing-2)",
-                }}
+                className="sm:text-heading-2 text-heading-4-bold bold pb-2"
               >
                 Get to know your customers with forms worth filling out
               </p>
               <p
-                className="text-body-3"
-                style={{
-                  color: "var(--colors-gray-700)",
-                  paddingBottom: "var(--spacing-8)",
-                }}
+                className="text-body-3 text-gray-700 pb-8"
               >
                 Collect all the data you need to understand customers with forms
                 designed to be refreshingly different
@@ -35,13 +28,11 @@ export default function Home() {
               <Button
                 disabled={false}
                 variant={"brand"}
-                style={{
-                  height: "48px",
-                }}
+                className="h-[48]"
                 iconLeft={
                   <Image
                     src={"/images/icons/Chevron-right.png"}
-                    alt=""
+                    alt="get-started-back-arrow"
                     width={24}
                     height={24}
                   />
@@ -51,9 +42,9 @@ export default function Home() {
               </Button>
             </div>
             <img
-              src="/images/mock/Fixed-aspect-ratio-spacer.png"
-              alt=""
-              style={{ width: "588px" }}
+              src="/images/Fixed-aspect-ratio-spacer.png"
+              alt="get-product-certificate"
+              className="w-[588]"
             />
           </div>
         </div>
