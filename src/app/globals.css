@@ -125,6 +125,12 @@
   --font-size-6xl: 48px;
   --font-size-7xl: 64px;
   --font-size-8xl: 72px;
+  --rounded-base: 4px;
+  --rounded-lg: 8px;
+  --rounded-xl: 12px;
+  --rounded-2xl: 16px;
+  --rounded-3xl: 24px;
+  --rounded-full: 999px;
 }
 
 body {
