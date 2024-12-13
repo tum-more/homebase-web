@@ -9,7 +9,7 @@ interface Props {
   onPageChange: (page: number) => void;
 }
 
-export default function Pagination(props: Props) {
+export function Pagination(props: Props) {
   const { currentPage, totalPages, className, onPageChange } = props;
   const generatePageNumbers = () => {
     const pages: number[] = [];

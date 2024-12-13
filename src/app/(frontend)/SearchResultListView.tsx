@@ -5,28 +5,27 @@ import {
   CompanyCardSkeleton,
   InfiniteScroll,
   Pagination,
+  ProductCard,
+  ProductCardSkeleton,
 } from "@/components/organisms";
-import {
-  getCompanies,
-  getCompanyTotalPagination,
-} from "@/lib/feature/company/company.action";
-import { CompanyWithIndustry } from "@/lib/feature/company/company.schema";
+import { searchCompanyOrProduct } from "@/lib/feature/company/company.action";
 import { useLoading } from "@/share/providers/loadingContextProvider";
 import { useEffect, useState } from "react";
 
 const mobileSize = 639;
 
 interface Props {
-  onTotalItemsChange?: (totalItems: number) => void;
+  search: string;
+  onTotalItemsChange: (totalItems: number) => void;
 }
 
-export function CompanyListView(props: Props) {
+export function SearchResultListView(props: Props) {
   const { loading, setLoading, setError } = useLoading();
-  const [companies, setCompanies] = useState<CompanyWithIndustry[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [isClient, setIsClient] = useState<boolean>(false);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(8);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(0);
   const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -50,18 +49,21 @@ export function CompanyListView(props: Props) {
   }, []);
 
   useEffect(() => {
-    async function fetchInitialData() {
+    async function fetchData() {
       try {
         setLoading(true);
-        const initialData = await getCompanies(1, itemsPerPage);
-        setCompanies(initialData.data);
-
-        if (props?.onTotalItemsChange) {
-          props?.onTotalItemsChange(initialData.totalItems ?? 0);
-        }
-
-        const pages = await getCompanyTotalPagination(itemsPerPage);
-        setTotalPages(pages);
+        const {
+          data: fetchedData,
+          totalItems,
+          totalPages,
+        } = await searchCompanyOrProduct(
+          props.search,
+          currentPage,
+          itemsPerPage
+        );
+        setData(fetchedData);
+        setTotalPages(totalPages ?? 0);
+        props.onTotalItemsChange(totalItems ?? 0);
       } catch (error) {
         setError("Failed to fetch data");
         console.error(error);
@@ -71,23 +73,30 @@ export function CompanyListView(props: Props) {
     }
 
     if (isClient) {
-      fetchInitialData();
+      fetchData();
     }
   }, [isClient, itemsPerPage]);
 
-  const fetchCompanyPagination = async (page: number) => {
-    setIsPageLoading(true);
+  const fetchMoreData = async (page: number) => {
+    console.log("fetchMoreData", page);
     try {
-      const data = await getCompanies(page, itemsPerPage);
-      setCompanies(data.data);
-
-      const pages = await getCompanyTotalPagination(itemsPerPage);
-      setTotalPages(pages);
-    } catch (error) {
-      setError("Failed to fetch data");
-      console.error(error);
-    } finally {
+      const { data: fetchedData } = await searchCompanyOrProduct(
+        props.search,
+        page,
+        itemsPerPage
+      );
+      if (isMobile) {
+        setData((prev) => [...prev, ...fetchedData]);
+      } else {
+        setData(fetchedData);
+      }
+      setCurrentPage(page);
       setIsPageLoading(false);
+      return fetchedData;
+    } catch (error) {
+      setError("Failed to fetch more companies");
+      console.error(error);
+      return [];
     }
   };
 
@@ -96,26 +105,13 @@ export function CompanyListView(props: Props) {
     setIsPageLoading(true);
 
     setTimeout(() => {
-      fetchCompanyPagination(page);
+      fetchMoreData(page);
     }, 300);
-
+    
     window.scrollTo({
       top: document.documentElement.scrollTop,
       behavior: "smooth",
     });
-  };
-
-  const fetchMoreCompanies = async (page: number) => {
-    try {
-      const { data } = await getCompanies(page, itemsPerPage);
-      setCompanies((prev) => [...prev, ...data]);
-      setCurrentPage(page);
-      return data;
-    } catch (error) {
-      setError("Failed to fetch more companies");
-      console.error(error);
-      return [];
-    }
   };
 
   const isMobile =
@@ -127,7 +123,12 @@ export function CompanyListView(props: Props) {
         <>
           {Array.from({ length: itemsPerPage }).map((_, index) => (
             <div className="mt-4 mb-4" key={index}>
-              <CompanyCardSkeleton />
+              {index % 2 === 0 ? (
+                <CompanyCardSkeleton />
+              ) : (
+                <ProductCardSkeleton />
+              )}
+              {/* <CompanyCardSkeleton /> */}
             </div>
           ))}
         </>
@@ -135,27 +136,35 @@ export function CompanyListView(props: Props) {
         <>
           {isMobile ? (
             <InfiniteScroll
-              fetchMoreData={(page) => fetchMoreCompanies(page)}
+              fetchMoreData={(page) => fetchMoreData(page)}
               hasMore={currentPage < totalPages}
             >
-              <div className="flex flex-col gap-4 mb-[56px]">
-                {companies.map((company) => (
-                  <CompanyCard
-                    key={`company-${company.companyName}`}
-                    data={company}
-                  />
-                ))}
+              <div className="flex flex-col gap-4">
+                {data.map((item, index) =>
+                  item.company ? (
+                    <CompanyCard key={`company-${index}`} data={item.company} />
+                  ) : item.product ? (
+                    <ProductCard
+                      key={`product-${index}`}
+                      product={item.product}
+                    />
+                  ) : null
+                )}
               </div>
             </InfiniteScroll>
           ) : (
             <>
               <div className="flex flex-col gap-4 mb-[56px]">
-                {companies.map((company) => (
-                  <CompanyCard
-                    key={`company-${company.companyName}`}
-                    data={company}
-                  />
-                ))}
+                {data.map((item, index) =>
+                  item.company ? (
+                    <CompanyCard key={`company-${index}`} data={item.company} />
+                  ) : item.product ? (
+                    <ProductCard
+                      key={`product-${index}`}
+                      product={item.product}
+                    />
+                  ) : null
+                )}
               </div>
               <Pagination
                 currentPage={currentPage}
