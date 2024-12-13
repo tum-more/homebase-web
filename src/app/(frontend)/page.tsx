@@ -75,7 +75,7 @@ export default function Home() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by company or product"
-                  className="pl-6 h-[100%] sm:w-[635px] w-[207px]"
+                  className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis"
                 />
                 <Button
                   onClick={searching}
