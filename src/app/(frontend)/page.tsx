@@ -10,7 +10,7 @@ export default function Home() {
   const [search, setSearch] = useState<string>("");
   const searching = () => {
     console.log(search);
-  }
+  };
 
   return (
     <LoadingProvider>
@@ -48,10 +48,8 @@ export default function Home() {
           />
         </div>
 
-        <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px] ">
-          <div
-            className="sm:flex flex-col sm:items-center justify-center text-center sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]"
-          >
+        <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px]">
+          <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]">
             <p
               className="sm:text-heading-3 text-heading-5-bold pb-4"
               style={{
@@ -60,19 +58,18 @@ export default function Home() {
             >
               Discover the world-saving <br /> results we've achieved
             </p>
-            <p
-              className="text-body-3 text-gray-700 pb-6"
-            >
+            <p className="text-body-3 text-gray-700 pb-6">
               Evaluated company directory.
             </p>
-            <div
-              className="flex w-full justify-center space-x-3 h-[60px]"
-            >
+            <div className="flex justify-center space-x-3 h-[60px]">
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by company or product"
-                className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis flex-1"
+                className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis flex-1 text-body-3 border-solid"
+                style={{
+                  borderColor: "#dcdcdc",
+                }}
               />
               <Button
                 onClick={searching}
