@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>("");
   const searching = () => {
     console.log(search);
   }
@@ -50,51 +50,45 @@ export default function Home() {
 
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px] ">
           <div
-            className="bg-cover bg-center flex sm:items-center justify-center text-center h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]"
+            className="sm:flex flex-col sm:items-center justify-center text-center sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]"
           >
-            <div
-              className="w-[778px] h-[210px]"
+            <p
+              className="sm:text-heading-3 text-heading-5-bold pb-4"
+              style={{
+                textShadow: "var(--shadow-drop-shadow-base)",
+              }}
             >
-              <p
-                className="sm:text-heading-3 bold text-heading-5-bold pb-4"
-                style={{
-                  textShadow: "var(--shadow-drop-shadow-base)",
-                }}
+              Discover the world-saving <br /> results we've achieved
+            </p>
+            <p
+              className="text-body-3 text-gray-700 pb-6"
+            >
+              Evaluated company directory.
+            </p>
+            <div
+              className="flex w-full justify-center space-x-3 h-[60px]"
+            >
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search by company or product"
+                className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis flex-1"
+              />
+              <Button
+                onClick={searching}
+                variant={"brand"}
+                className="h-[100%] w-auto"
+                iconLeft={
+                  <Image
+                    src={"/images/icons/Search.png"}
+                    alt="get-started-search"
+                    width={24}
+                    height={24}
+                  />
+                }
               >
-                Discover the world-saving <br /> results we've achieved
-              </p>
-              <p
-                className="text-body-3 text-gray-700 pb-6"
-              >
-                Evaluated company directory.
-              </p>
-              <div
-                className="inline-flex w-full items-center space-x-3 h-[60px]"
-              >
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search by company or product"
-                  className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis"
-                />
-                <Button
-                  onClick={searching}
-                  disabled={false}
-                  variant={"brand"}
-                  className="h-[100%] w-auto"
-                  iconLeft={
-                    <Image
-                      className="h-[24px] w-[24px]"
-                      src={"/images/icons/Search.png"}
-                      alt="get-started-search"
-                      width={24}
-                      height={24}
-                    />
-                  }
-                >
-                  Search
-                </Button>
-              </div>
+                Search
+              </Button>
             </div>
           </div>
         </div>
