@@ -61,12 +61,12 @@ export default function Home() {
             <p className="text-body-3 text-gray-700 pb-6">
               Evaluated company directory.
             </p>
-            <div className="flex justify-center space-x-3 h-[60px]">
+            <div className="flex flex-row w-full max-w-[778px] justify-center space-x-3 h-[60px]">
               <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by company or product"
-                className="pl-6 pr-6 h-[100%] sm:w-[635px] text-ellipsis flex-1 text-body-3 border-solid"
+                className="pl-6 pr-6 h-[100%] text-ellipsis flex-1 text-body-3 border-solid"
                 style={{
                   borderColor: "#dcdcdc",
                 }}
