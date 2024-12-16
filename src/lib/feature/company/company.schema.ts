@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Product } from "../categorize/categorize-data.schema";
 
 export const CompanyDataSchema = z.object({
   id: z.number().optional(),
@@ -24,4 +25,16 @@ export type CompanyData = z.infer<typeof CompanyDataSchema>;
 
 export interface CompanyWithIndustry extends CompanyData {
   industry: string[] | null;
+}
+
+export interface SearchCompanyOrProduct {
+  company: CompanyWithIndustry | null;
+  product: Product | null;
+}
+
+export interface CompanyPaginatedResponse<T> {
+  data: T[];
+  totalItems?: number;
+  totalPages?: number;
+  currentPage?: number;
 }

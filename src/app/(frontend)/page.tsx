@@ -2,14 +2,33 @@
 
 import { Button, Input } from "@/components/ui";
 import { LoadingProvider } from "@/share/providers/loadingContextProvider";
-import CompanyListView from "./CompanyListView";
 import Image from "next/image";
 import { useState } from "react";
+import { SearchResultListView } from "./SearchResultListView";
+import { CompanyListView } from "./CompanyListView";
+import { isEmptyString } from "@/share/helper/helper";
 
 export default function Home() {
   const [search, setSearch] = useState<string>("");
-  const searching = () => {
-    console.log(search);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const [finalSearch, setFinalSearch] = useState<string>("");
+
+  const handleSearch = async () => {
+    console.log("handleSearch", search);
+    setFinalSearch(search);
+  };
+
+  const handleToCompanyList = () => {
+    const element = document.getElementById("result-list");
+    element?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start",
+    });
+  };
+
+  const handleTotalItemsChange = (items: number) => {
+    setTotalItems(items);
   };
 
   return (
@@ -25,6 +44,7 @@ export default function Home() {
               designed to be refreshingly different
             </p>
             <Button
+              onClick={handleToCompanyList}
               disabled={false}
               variant={"brand"}
               className="h-[48px]"
@@ -64,7 +84,12 @@ export default function Home() {
             <div className="flex flex-row w-full max-w-[778px] justify-center space-x-3 h-[60px]">
               <Input
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  if (isEmptyString(e.target.value)) {
+                    setFinalSearch(e.target.value);
+                  }
+                }}
                 placeholder="Search by company or product"
                 className="pl-6 pr-6 h-[100%] text-ellipsis flex-1 text-body-3 border-solid"
                 style={{
@@ -72,7 +97,7 @@ export default function Home() {
                 }}
               />
               <Button
-                onClick={searching}
+                onClick={handleSearch}
                 variant={"brand"}
                 className="h-[100%] w-auto"
                 iconLeft={
@@ -90,7 +115,19 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <CompanyListView />
+      <section id="result-list" className="">
+        <div className="container mx-auto max-w-screen-xl pb-2">
+          <p className="text-gray-secondary">Showing {totalItems} results</p>
+        </div>
+        {!isEmptyString(finalSearch) ? (
+          <SearchResultListView
+            search={finalSearch}
+            onTotalItemsChange={handleTotalItemsChange}
+          />
+        ) : (
+          <CompanyListView onTotalItemsChange={handleTotalItemsChange} />
+        )}
+      </section>
     </LoadingProvider>
   );
 }

@@ -23,8 +23,8 @@ export default {
         foreground: "hsl(var(--foreground))",
         black: "var(--colors-black)",
         brand: {
-          primary: 'var(--colors-brand-500)',
-          subtle: 'var(--colors-brand-50)',
+          primary: "var(--colors-brand-500)",
+          subtle: "var(--colors-brand-50)",
           "50": "var(--colors-brand-50)",
           "100": "var(--colors-brand-100)",
           "200": "var(--colors-brand-200)",
@@ -51,6 +51,7 @@ export default {
           "900": "var(--colors-sky-900)",
         },
         gray: {
+          secondary: "var(--colors-gray-secondary)",
           "50": "var(--colors-gray-50)",
           "100": "var(--colors-gray-100)",
           "200": "var(--colors-gray-200)",

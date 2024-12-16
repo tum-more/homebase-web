@@ -6,7 +6,7 @@ import axios from "axios";
 import { load } from "cheerio";
 import https from "https";
 import dayjs from "dayjs";
-import { isDate, toDateFormat } from "@/share/helper.ts/formatter";
+import { isDate, toDateFormat } from "@/share/helper/formatter";
 
 const agent = new https.Agent({ rejectUnauthorized: false });
 const BASE_URL =
