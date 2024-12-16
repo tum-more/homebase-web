@@ -75,7 +75,7 @@ export function SearchResultListView(props: Props) {
     if (isClient) {
       fetchData();
     }
-  }, [isClient, itemsPerPage]);
+  }, [isClient, props.search, itemsPerPage]);
 
   const fetchMoreData = async (page: number) => {
     console.log("fetchMoreData", page);

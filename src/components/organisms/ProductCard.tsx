@@ -1,7 +1,7 @@
 import { Product } from "@/lib/feature/categorize/categorize-data.schema";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
-import { toDateFormat } from "@/share/helper.ts/formatter";
+import { toDateFormat } from "@/share/helper/formatter";
 
 interface Props {
   product?: Product;

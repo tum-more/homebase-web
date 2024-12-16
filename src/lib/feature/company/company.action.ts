@@ -8,8 +8,6 @@ import {
 } from "./company.schema";
 import { ProductTable } from "@/lib/db/schema/product.db.schema";
 import { asc, count, eq, like } from "drizzle-orm";
-import { exceptAll } from "drizzle-orm/mysql-core";
-import { Company } from "@/share/models/company.model";
 import { Product } from "../categorize/categorize-data.schema";
 
 export async function getCompanyTotalPagination(
