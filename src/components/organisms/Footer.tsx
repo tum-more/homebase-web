@@ -44,7 +44,16 @@ export function Footer() {
                 className="mr-8"
               />
             </Link>
-            <p className="text-body-4">Powered by Morestudio</p>
+            <p className="text-body-4">
+              Powered by{" "}
+              <Link
+                href="https://www.morestudio.co.th"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Morestudio
+              </Link>
+            </p>
             <div>
               <IconButton
                 src="/images/icons/Facebook@3x.png"
