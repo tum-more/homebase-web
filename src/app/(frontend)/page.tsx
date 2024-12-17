@@ -6,15 +6,17 @@ import Image from "next/image";
 import { useState } from "react";
 import { SearchResultListView } from "./SearchResultListView";
 import { CompanyListView } from "./CompanyListView";
-import { isEmptyString } from "@/share/helper/helper";
+import { encodeId, isEmptyString } from "@/share/helper/helper";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [search, setSearch] = useState<string>("");
   const [totalItems, setTotalItems] = useState<number>(0);
   const [finalSearch, setFinalSearch] = useState<string>("");
+  const [isNotFoundData, setIsNotFoundData] = useState<boolean>(false);
 
   const handleSearch = async () => {
-    console.log("handleSearch", search);
     setFinalSearch(search);
   };
 
@@ -29,6 +31,17 @@ export default function Home() {
 
   const handleTotalItemsChange = (items: number) => {
     setTotalItems(items);
+    if (!isEmptyString(finalSearch) && items === 0) {
+      setIsNotFoundData(true);
+    } else {
+      setIsNotFoundData(false);
+    }
+  };
+
+  const handleToCompanyDetail = (id?: number) => {
+    if (!id) return;
+    const encodedId = encodeId(id);
+    router.push(`/product/${encodedId}`);
   };
 
   return (
@@ -86,15 +99,9 @@ export default function Home() {
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
-                  if (isEmptyString(e.target.value)) {
-                    setFinalSearch(e.target.value);
-                  }
                 }}
                 placeholder="Search by company or product"
-                className="pl-6 pr-6 h-[100%] text-ellipsis flex-1 text-body-3 border-solid"
-                style={{
-                  borderColor: "#dcdcdc",
-                }}
+                className="pl-6 pr-6 h-[100%] text-ellipsis flex-1 text-body-3 border-solid border-[#dcdcdc]"
               />
               <Button
                 onClick={handleSearch}
@@ -116,16 +123,45 @@ export default function Home() {
         </div>
       </div>
       <section id="result-list" className="">
-        <div className="container mx-auto max-w-screen-xl pb-2">
-          <p className="text-gray-secondary">Showing {totalItems} results</p>
-        </div>
+        {!!isNotFoundData && (
+          <>
+            <div className="container mx-auto max-w-screen-xl">
+              <p className="text-gray-secondary">
+                There’s 0 products and companies matching “{finalSearch}”:
+              </p>
+              <div className="flex flex-col items-center sm:pt-[164px] sm:pb-[340px] pt-[50px] pb-[150px]">
+                <Image
+                  src="/images/Isolation_Mode@3x.png"
+                  alt="Isolation_Mode"
+                  width={138}
+                  height={136}
+                />
+                <h6 className="text-heading-6-bold">No search results found</h6>
+                <p className="text-body-3 mt-2 text-gray-secondary">
+                  Please try again with a different search query
+                </p>
+              </div>
+            </div>
+          </>
+        )}
+
+        {!isNotFoundData && (
+          <div className="container mx-auto max-w-screen-xl pb-2">
+            <p className="text-gray-secondary">Showing {totalItems} results</p>
+          </div>
+        )}
+
         {!isEmptyString(finalSearch) ? (
           <SearchResultListView
             search={finalSearch}
             onTotalItemsChange={handleTotalItemsChange}
+            onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
           />
         ) : (
-          <CompanyListView onTotalItemsChange={handleTotalItemsChange} />
+          <CompanyListView
+            onTotalItemsChange={handleTotalItemsChange}
+            onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
+          />
         )}
       </section>
     </LoadingProvider>

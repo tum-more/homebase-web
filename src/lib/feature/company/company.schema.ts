@@ -38,3 +38,16 @@ export interface CompanyPaginatedResponse<T> {
   totalPages?: number;
   currentPage?: number;
 }
+
+export interface ResponseModel<T> {
+  data?: T;
+  error?: string;
+}
+
+
+export interface ProductPaginatedResponse<T> {
+  data: T;
+  totalItems?: number;
+  totalPages?: number;
+  currentPage?: number;
+}
