@@ -10,7 +10,7 @@ export default function FrontendLayout({
       <div className="w-full sticky top-0 z-[999]">
         <Navigation />
       </div>
-      <main className="min-h-screen">{children}</main>
+      {children}
       <Footer />
     </div>
   );

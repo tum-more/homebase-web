@@ -3,6 +3,7 @@ import {
   CompanyCard,
   CompanyCardSkeleton,
   InfiniteScroll,
+  NotFoundView,
   Pagination,
   ProductCard,
   ProductCardSkeleton,
@@ -29,10 +30,11 @@ function Product() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(8);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [company, setCompany] = useState<CompanyWithIndustry | null>();
+  const [company, setCompany] = useState<CompanyWithIndustry | null>(null);
   const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
   const [data, setData] = useState<ProductData[]>([]);
   const [encodeId, setEncodeId] = useState<number | null>(null);
+  const [isNotFound, setIsNotFound] = useState<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,6 +78,7 @@ function Product() {
         setCurrentPage(currentPage);
         setTotalPages(totalPages ?? 0);
       } catch (error) {
+        setIsNotFound(true);
         setError("Failed to fetch data");
         console.error(error);
       } finally {
@@ -127,8 +130,12 @@ function Product() {
   const isMobile =
     typeof window !== "undefined" && window.innerWidth <= mobileSize;
 
+  if (isNotFound && company === null) {
+    return <NotFoundView />;
+  }
+
   return (
-    <div className="container mx-auto max-w-screen-xl overflow-hidden">
+    <main className="min-h-screen container mx-auto max-w-screen-xl overflow-hidden">
       {isPageLoading || loading || !isClient ? (
         <div className="flex sm:flex-row flex-col pb-[90px]">
           <div className="sm:w-[220px] w-full">
@@ -198,7 +205,7 @@ function Product() {
           )}
         </>
       )}
-    </div>
+    </main>
   );
 }
 

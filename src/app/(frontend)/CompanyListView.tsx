@@ -129,7 +129,7 @@ export function CompanyListView(props: Props) {
     typeof window !== "undefined" && window.innerWidth <= mobileSize;
 
   return (
-    <div className="container mx-auto max-w-screen-xl mb-[62px] sm:mb-[119px]">
+    <div className="container mx-auto max-w-screen-xl mb-[71px] sm:mb-[119px]">
       {isPageLoading || loading || !isClient ? (
         <>
           {Array.from({ length: itemsPerPage }).map((_, index) => (

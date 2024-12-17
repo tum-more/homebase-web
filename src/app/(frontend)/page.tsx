@@ -41,12 +41,12 @@ export default function Home() {
   const handleToCompanyDetail = (id?: number) => {
     if (!id) return;
     const encodedId = encodeId(id);
-    router.push(`/product/${encodedId}`);
+    router.push(`/company/${encodedId}`);
   };
 
   return (
     <LoadingProvider>
-      <div>
+      <main className="min-h-screen">
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:h-[calc(100vh-51px)] flex flex-col sm:pt-0 pt-6 text-start sm:flex-row justify-between items-center">
           <div className="sm:pb-0 pb-12 max-w-[526px]">
             <p className="sm:text-heading-2 text-heading-4-bold bold pb-2">
@@ -82,7 +82,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px]">
-          <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]">
+          <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')] sm:px-2 px-0">
             <p
               className="sm:text-heading-3 text-heading-5-bold pb-4"
               style={{
@@ -121,49 +121,53 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-      <section id="result-list" className="">
-        {!!isNotFoundData && (
-          <>
-            <div className="container mx-auto max-w-screen-xl">
-              <p className="text-gray-secondary">
-                There’s 0 products and companies matching “{finalSearch}”:
-              </p>
-              <div className="flex flex-col items-center sm:pt-[164px] sm:pb-[340px] pt-[50px] pb-[150px]">
-                <Image
-                  src="/images/Isolation_Mode@3x.png"
-                  alt="Isolation_Mode"
-                  width={138}
-                  height={136}
-                />
-                <h6 className="text-heading-6-bold">No search results found</h6>
-                <p className="text-body-3 mt-2 text-gray-secondary">
-                  Please try again with a different search query
+        <section id="result-list">
+          {!!isNotFoundData && (
+            <>
+              <div className="container mx-auto max-w-screen-xl">
+                <p className="text-gray-secondary">
+                  There’s 0 products and companies matching “{finalSearch}”:
                 </p>
+                <div className="flex flex-col items-center sm:pt-[164px] sm:pb-[340px] pt-[50px] pb-[150px]">
+                  <Image
+                    src="/images/Isolation_Mode@3x.png"
+                    alt="Isolation_Mode"
+                    width={138}
+                    height={136}
+                  />
+                  <h6 className="text-heading-6-bold">
+                    No search results found
+                  </h6>
+                  <p className="text-body-3 mt-2 text-gray-secondary">
+                    Please try again with a different search query
+                  </p>
+                </div>
               </div>
+            </>
+          )}
+
+          {!isNotFoundData && (
+            <div className="container mx-auto max-w-screen-xl pb-2">
+              <p className="text-gray-secondary">
+                Showing {totalItems} results
+              </p>
             </div>
-          </>
-        )}
+          )}
 
-        {!isNotFoundData && (
-          <div className="container mx-auto max-w-screen-xl pb-2">
-            <p className="text-gray-secondary">Showing {totalItems} results</p>
-          </div>
-        )}
-
-        {!isEmptyString(finalSearch) ? (
-          <SearchResultListView
-            search={finalSearch}
-            onTotalItemsChange={handleTotalItemsChange}
-            onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
-          />
-        ) : (
-          <CompanyListView
-            onTotalItemsChange={handleTotalItemsChange}
-            onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
-          />
-        )}
-      </section>
+          {!isEmptyString(finalSearch) ? (
+            <SearchResultListView
+              search={finalSearch}
+              onTotalItemsChange={handleTotalItemsChange}
+              onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
+            />
+          ) : (
+            <CompanyListView
+              onTotalItemsChange={handleTotalItemsChange}
+              onPressCompany={(companyId) => handleToCompanyDetail(companyId)}
+            />
+          )}
+        </section>
+      </main>
     </LoadingProvider>
   );
 }

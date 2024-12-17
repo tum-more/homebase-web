@@ -125,7 +125,7 @@ export function SearchResultListView(props: Props) {
     typeof window !== "undefined" && window.innerWidth <= mobileSize;
 
   return (
-    <div className="container mx-auto max-w-screen-xl mb-[62px] sm:mb-[119px]">
+    <div className="container mx-auto max-w-screen-xl mb-[71px] sm:mb-[119px]">
       {isPageLoading || loading || !isClient ? (
         <>
           {Array.from({ length: itemsPerPage }).map((_, index) => (
@@ -149,11 +149,16 @@ export function SearchResultListView(props: Props) {
               <div className="flex flex-col gap-4">
                 {data.map((item, index) =>
                   item.company ? (
-                    <CompanyCard key={`company-${index}`} data={item.company} />
+                    <CompanyCard
+                      key={`company-${index}`}
+                      data={item.company}
+                      onPress={(id) => handleOnPressItem(id)}
+                    />
                   ) : item.product ? (
                     <ProductCard
                       key={`product-${index}`}
                       product={item.product}
+                      onPress={(id) => handleOnPressItem(id)}
                     />
                   ) : null
                 )}

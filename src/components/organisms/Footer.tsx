@@ -31,7 +31,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 py-[48px] sm:py-[80px] text-gray-50">
+    <footer className="bg-gray-900 py-[48px] sm:py-[80px] text-gray-50 z-[990]">
       <div className="container mx-auto max-w-screen-xl text-start">
         <div className="flex flex-col sm:flex-row justify-between w-full">
           <div className="w-full sm:w-auto h-[87px] flex flex-col justify-between">
@@ -44,7 +44,16 @@ export function Footer() {
                 className="mr-8"
               />
             </Link>
-            <p className="text-body-4">Powered by Morestudio</p>
+            <p className="text-body-4">
+              Powered by{" "}
+              <Link
+                href="https://www.morestudio.co.th"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Morestudio
+              </Link>
+            </p>
             <div>
               <IconButton
                 src="/images/icons/Facebook@3x.png"
