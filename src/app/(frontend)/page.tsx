@@ -82,7 +82,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px]">
-          <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')]">
+          <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')] sm:px-2 px-0">
             <p
               className="sm:text-heading-3 text-heading-5-bold pb-4"
               style={{
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <section id="result-list" className="">
+        <section id="result-list">
           {!!isNotFoundData && (
             <>
               <div className="container mx-auto max-w-screen-xl">
