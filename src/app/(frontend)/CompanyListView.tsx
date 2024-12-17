@@ -18,6 +18,7 @@ const mobileSize = 639;
 
 interface Props {
   onTotalItemsChange?: (totalItems: number) => void;
+  onPressCompany?: (companyId?: number) => void;
 }
 
 export function CompanyListView(props: Props) {
@@ -118,6 +119,12 @@ export function CompanyListView(props: Props) {
     }
   };
 
+  const handleOnPressItem = (id?: number) => {
+    if (props.onPressCompany) {
+      props.onPressCompany(id);
+    }
+  };
+
   const isMobile =
     typeof window !== "undefined" && window.innerWidth <= mobileSize;
 
@@ -143,6 +150,7 @@ export function CompanyListView(props: Props) {
                   <CompanyCard
                     key={`company-${company.companyName}`}
                     data={company}
+                    onPress={(id) => handleOnPressItem(id)}
                   />
                 ))}
               </div>
@@ -154,6 +162,7 @@ export function CompanyListView(props: Props) {
                   <CompanyCard
                     key={`company-${company.companyName}`}
                     data={company}
+                    onPress={(id) => handleOnPressItem(id)}
                   />
                 ))}
               </div>

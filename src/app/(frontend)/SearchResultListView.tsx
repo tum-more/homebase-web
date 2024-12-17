@@ -9,6 +9,7 @@ import {
   ProductCardSkeleton,
 } from "@/components/organisms";
 import { searchCompanyOrProduct } from "@/lib/feature/company/company.action";
+import { SearchCompanyOrProduct } from "@/lib/feature/company/company.schema";
 import { useLoading } from "@/share/providers/loadingContextProvider";
 import { useEffect, useState } from "react";
 
@@ -17,11 +18,12 @@ const mobileSize = 639;
 interface Props {
   search: string;
   onTotalItemsChange: (totalItems: number) => void;
+  onPressCompany?: (companyId?: number) => void;
 }
 
 export function SearchResultListView(props: Props) {
   const { loading, setLoading, setError } = useLoading();
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<SearchCompanyOrProduct[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -78,7 +80,6 @@ export function SearchResultListView(props: Props) {
   }, [isClient, props.search, itemsPerPage]);
 
   const fetchMoreData = async (page: number) => {
-    console.log("fetchMoreData", page);
     try {
       const { data: fetchedData } = await searchCompanyOrProduct(
         props.search,
@@ -107,11 +108,17 @@ export function SearchResultListView(props: Props) {
     setTimeout(() => {
       fetchMoreData(page);
     }, 300);
-    
+
     window.scrollTo({
       top: document.documentElement.scrollTop,
       behavior: "smooth",
     });
+  };
+
+  const handleOnPressItem = (id?: number) => {
+    if (props.onPressCompany) {
+      props.onPressCompany(id);
+    }
   };
 
   const isMobile =
@@ -157,11 +164,16 @@ export function SearchResultListView(props: Props) {
               <div className="flex flex-col gap-4 mb-[56px]">
                 {data.map((item, index) =>
                   item.company ? (
-                    <CompanyCard key={`company-${index}`} data={item.company} />
+                    <CompanyCard
+                      key={`company-${index}`}
+                      data={item.company}
+                      onPress={(id) => handleOnPressItem(id)}
+                    />
                   ) : item.product ? (
                     <ProductCard
                       key={`product-${index}`}
                       product={item.product}
+                      onPress={(id) => handleOnPressItem(id)}
                     />
                   ) : null
                 )}

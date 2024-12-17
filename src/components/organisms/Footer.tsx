@@ -22,8 +22,8 @@ const Menus: MenuItemsType[] = [];
 export function Footer() {
   const handleOnPressSocial = (type: keyof SocialType) => {
     const socialLinks: SocialType = {
-      facebook: "https://www.facebook.com/",
-      instagram: "https://www.instagram.com/",
+      facebook: "https://www.facebook.com/profile.php?id=61558015288073",
+      instagram: "https://www.instagram.com/homebase_thailand/",
       twitter: "https://twitter.com/",
     };
 
@@ -58,12 +58,12 @@ export function Footer() {
                 className="mr-3"
                 onPress={() => handleOnPressSocial("instagram")}
               />
-              <IconButton
+              {/* <IconButton
                 src="/images/icons/Twitter@3x.png"
                 alt="twitter"
                 className="mr-3"
                 onPress={() => handleOnPressSocial("twitter")}
-              />
+              /> */}
             </div>
           </div>
           <div className="w-full sm:w-auto text-body-3-semi-bold text-white-500">
