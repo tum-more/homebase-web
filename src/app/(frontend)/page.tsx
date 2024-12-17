@@ -22,12 +22,18 @@ export default function Home() {
 
   const handleToCompanyList = () => {
     const element = document.getElementById("result-list");
-    element?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "start",
-    });
+    const headerOffset = 75;
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
+  
 
   const handleTotalItemsChange = (items: number) => {
     setTotalItems(items);
@@ -63,7 +69,7 @@ export default function Home() {
               className="h-[48px]"
               iconLeft={
                 <Image
-                  src={"/images/icons/Chevron-right.png"}
+                  src={"/images/icons/Chevron-right@3x.png"}
                   alt="get-started-back-arrow"
                   width={24}
                   height={24}
@@ -91,7 +97,12 @@ export default function Home() {
             >
               Discover the world-saving <br /> results we've achieved
             </p>
-            <p className="text-body-3 text-gray-700 pb-6">
+            <p
+              className="text-body-3 text-gray-700 pb-6"
+              style={{
+                textShadow: "var(--shadow-drop-shadow-base)",
+              }}
+            >
               Evaluated company directory.
             </p>
             <div className="flex flex-row w-full max-w-[778px] justify-center space-x-3 h-[60px]">
@@ -109,7 +120,7 @@ export default function Home() {
                 className="h-[100%] w-auto"
                 iconLeft={
                   <Image
-                    src={"/images/icons/Search.png"}
+                    src={"/images/icons/Search@3x.png"}
                     alt="get-started-search"
                     width={24}
                     height={24}
@@ -123,27 +134,25 @@ export default function Home() {
         </div>
         <section id="result-list">
           {!!isNotFoundData && (
-            <>
-              <div className="container mx-auto max-w-screen-xl">
-                <p className="text-gray-secondary">
-                  There’s 0 products and companies matching “{finalSearch}”:
+            <div className="container mx-auto max-w-screen-xl">
+              <p className="text-gray-secondary">
+                There’s 0 products and companies matching “{finalSearch}”:
+              </p>
+              <div className="flex flex-col items-center sm:pt-[164px] sm:pb-[340px] pt-[50px] pb-[150px]">
+                <Image
+                  src="/images/Isolation_Mode@3x.png"
+                  alt="Isolation_Mode"
+                  width={138}
+                  height={136}
+                />
+                <h6 className="text-heading-6-bold !normal-case">
+                  No search results found
+                </h6>
+                <p className="text-body-3 mt-2 text-gray-secondary">
+                  Please try again with a different search query
                 </p>
-                <div className="flex flex-col items-center sm:pt-[164px] sm:pb-[340px] pt-[50px] pb-[150px]">
-                  <Image
-                    src="/images/Isolation_Mode@3x.png"
-                    alt="Isolation_Mode"
-                    width={138}
-                    height={136}
-                  />
-                  <h6 className="text-heading-6-bold">
-                    No search results found
-                  </h6>
-                  <p className="text-body-3 mt-2 text-gray-secondary">
-                    Please try again with a different search query
-                  </p>
-                </div>
               </div>
-            </>
+            </div>
           )}
 
           {!isNotFoundData && (
