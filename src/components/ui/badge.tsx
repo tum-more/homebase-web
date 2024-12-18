@@ -9,7 +9,8 @@ const badgeVariants = cva("inline-flex items-center rounded-full border", {
       default:
         "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
       success: "border-transparent bg-lime-50 text-lime-900 px-4 py-1",
-      danger: "border-transparent bg-brand-primary text-brand-subtle px-8 py-4 rounded-base",
+      danger:
+        "border-transparent bg-brand-primary text-brand-subtle px-8 py-4 rounded-base",
       outline: "text-foreground",
     },
   },
