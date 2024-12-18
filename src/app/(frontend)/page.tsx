@@ -25,15 +25,15 @@ export default function Home() {
     const headerOffset = 75;
     if (element) {
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
     }
   };
-  
 
   const handleTotalItemsChange = (items: number) => {
     setTotalItems(items);
