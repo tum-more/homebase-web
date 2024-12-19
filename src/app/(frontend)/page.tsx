@@ -55,7 +55,7 @@ export default function Home() {
       <main className="min-h-screen">
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:h-[calc(100vh-51px)] flex flex-col sm:pt-0 pt-6 text-start sm:flex-row justify-between items-center">
           <div className="sm:pb-0 pb-12 max-w-[526px]">
-            <p className="sm:text-heading-2 text-heading-4-bold bold pb-2">
+            <p className="sm:text-heading-2 text-heading-4-black pb-2">
               Get to know your customers with forms worth filling out
             </p>
             <p className="text-body-3 text-gray-700 pb-8">
@@ -90,7 +90,7 @@ export default function Home() {
         <div className="container mx-auto max-w-screen-xl overflow-hidden relative w-full sm:pb-12 pb-10 sm:pt-0 pt-[72px]">
           <div className="sm:flex flex-col sm:items-center justify-center text-center sm:rounded-2xl sm:h-[452px] sm:bg-cover sm:bg-center sm:bg-[url('/images/back-ground-search.png')] sm:px-2 px-0">
             <p
-              className="sm:text-heading-3 text-heading-5-bold pb-4"
+              className="sm:text-heading-3 text-heading-5-black pb-4"
               style={{
                 textShadow: "var(--shadow-drop-shadow-base)",
               }}

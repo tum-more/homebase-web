@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "../../consts";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -22,6 +22,12 @@ export const metadata: Metadata = {
     icon: "/homebase-favicon.svg",
     apple: "/favicon.png",
     shortcut: "/homebase-favicon.svg",
+  },
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: "/images/homebase-og-image.jpg",
+    siteName: SITE_NAME,
   },
 };
 
