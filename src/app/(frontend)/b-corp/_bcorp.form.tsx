@@ -108,7 +108,7 @@ export default function TGOForm() {
           </div>
           <div>
             Your data is currently being processed. Please do not close this
-            browser until it's complete.
+            browser until it&apos;s complete.
           </div>
         </div>
       )}

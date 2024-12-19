@@ -49,8 +49,8 @@ export function Navigation() {
         {isMenuOpen && (
           <div className="sm:hidden absolute top-full left-0 w-full bg-white-500">
             <div className="container mx-auto max-w-screen-xl items-start text-heading-8-black">
-              {Menus?.map((menu) => (
-                <div className="py-2">
+              {Menus?.map((menu, index) => (
+                <div key={`${menu.label}-${index}`} className="py-2">
                   <Link key={`mobile-menu-${menu.label}`} href={menu.url}>
                     {menu.label}
                   </Link>

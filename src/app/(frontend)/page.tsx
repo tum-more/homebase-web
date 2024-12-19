@@ -95,7 +95,7 @@ export default function Home() {
                 textShadow: "var(--shadow-drop-shadow-base)",
               }}
             >
-              Discover the world-saving <br /> results we've achieved
+              Discover the world-saving <br /> results we&apos;ve achieved
             </p>
             <p
               className="text-body-3 text-gray-700 pb-6"
