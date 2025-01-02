@@ -109,10 +109,18 @@ export function SearchResultListView(props: Props) {
       fetchMoreData(page);
     }, 300);
 
-    window.scrollTo({
-      top: document.documentElement.scrollTop,
-      behavior: "smooth",
-    });
+    const element = document.getElementById("search-result-section");
+    const headerOffset = 130;
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const handleOnPressItem = (id?: number) => {
@@ -166,7 +174,10 @@ export function SearchResultListView(props: Props) {
             </InfiniteScroll>
           ) : (
             <>
-              <div className="flex flex-col gap-4 mb-[56px]">
+              <div
+                id="search-result-section"
+                className="flex flex-col gap-4 mb-[56px]"
+              >
                 {data.map((item, index) =>
                   item.company ? (
                     <CompanyCard
