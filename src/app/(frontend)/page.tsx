@@ -156,7 +156,7 @@ export default function Home() {
           )}
 
           {!isNotFoundData && (
-            <div className="container mx-auto max-w-screen-xl pb-2">
+            <div className="container mx-auto max-w-screen-xl mb-4 sm:mb-6">
               <p className="text-gray-secondary">
                 Showing {totalItems} results
               </p>

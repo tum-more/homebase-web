@@ -39,7 +39,9 @@ export function CompanyCard({
           } justify-between text-start `}
         >
           <div className="flex-1">
-            <h3 className="text-heading-8-bold !normal-case">Industry</h3>
+            <h3 className="text-heading-8-bold sm:mb-1 !normal-case">
+              Industry
+            </h3>
             <p
               className={`text-gray-600 ${
                 variant === "full" ? "mt-2" : "mt-0"
@@ -50,8 +52,10 @@ export function CompanyCard({
                 : "-"}
             </p>
           </div>
-          <div className="flex-1">
-            <h3 className="text-heading-8-bold !normal-case">Location</h3>
+          <div className="flex-1 mt-6 sm:mt-0">
+            <h3 className="text-heading-8-bold sm:mb-1 !normal-case">
+              Location
+            </h3>
             <p className="text-gray-600">{data.location ?? "-"}</p>
           </div>
         </div>
