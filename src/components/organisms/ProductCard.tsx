@@ -22,9 +22,12 @@ export function ProductCard(props: Props) {
   };
 
   return (
-    <button onClick={handleOnPress}>
+    <button
+      onClick={handleOnPress}
+      className={`${onPress != null ? "cursor-pointer" : "cursor-default"}`}
+    >
       <div
-        className={`${className} px-6 py-8 border shadow-drop-shadow-base border-[#DCDCDC] rounded-[12px] text-start`}
+        className={`${className} px-6 py-8 border shadow-drop-shadow-base border-[#DCDCDC] rounded-[12px] text-start ${onPress == null ? "select-text" : ""}`}
       >
         <div className="flex flex-row justify-between text-start">
           <div className="flex-1 sm:mr-4 mr-2 min-h-[54px]">

@@ -14,15 +14,19 @@ export function CompanyCard({
   onPress,
 }: Props) {
   const handleOnPress = () => {
+    if (onPress === null) return;
     if (onPress) {
       onPress(data?.id);
     }
   };
 
   return (
-    <button onClick={handleOnPress} className="w-full">
+    <button
+      onClick={handleOnPress}
+      className={`w-full ${onPress != null ? "cursor-pointer" : "cursor-default"}`}
+    >
       <div
-        className={`${className} px-6 py-8 border shadow-drop-shadow-base border-[#DCDCDC] rounded-[12px] text-start`}
+        className={`${className} px-6 py-8 border shadow-drop-shadow-base border-[#DCDCDC] rounded-[12px] text-start ${onPress == null ? "select-text" : ""}`}
       >
         <h2
           className={
@@ -52,7 +56,9 @@ export function CompanyCard({
                 : "-"}
             </p>
           </div>
-          <div className="flex-1 mt-6 sm:mt-0">
+          <div
+            className={`flex-1 ${variant === "full" ? "mt-2" : "mt-6 sm:mt-0"}`}
+          >
             <h3 className="text-heading-8-bold sm:mb-1 !normal-case">
               Location
             </h3>
