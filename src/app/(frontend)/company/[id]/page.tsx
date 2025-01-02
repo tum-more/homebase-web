@@ -121,10 +121,18 @@ function Product() {
       fetchMoreData(page);
     }, 300);
 
-    window.scrollTo({
-      top: document.documentElement.scrollTop,
-      behavior: "smooth",
-    });
+    const element = document.getElementById("browse-the-product");
+    const headerOffset = 75;
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const isMobile =
@@ -172,7 +180,10 @@ function Product() {
                 />
               </div>
               <div className="flex-1 ml-0 sm:ml-[27px] pt-12">
-                <h4 className="text-heading-4-bold !normal-case text-center mb-[28px]">
+                <h4
+                  id="browse-the-product"
+                  className="text-heading-4-bold !normal-case text-center mb-[28px]"
+                >
                   Browse the Product
                 </h4>
                 {isMobile ? (

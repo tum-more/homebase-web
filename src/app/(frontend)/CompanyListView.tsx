@@ -100,10 +100,18 @@ export function CompanyListView(props: Props) {
       fetchCompanyPagination(page);
     }, 300);
 
-    window.scrollTo({
-      top: document.documentElement.scrollTop,
-      behavior: "smooth",
-    });
+    const element = document.getElementById("company-section");
+    const headerOffset = 130;
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const fetchMoreCompanies = async (page: number) => {
@@ -157,7 +165,10 @@ export function CompanyListView(props: Props) {
             </InfiniteScroll>
           ) : (
             <>
-              <div className="flex flex-col gap-4 mb-[56px]">
+              <div
+                id="company-section"
+                className="flex flex-col gap-4 mb-[56px]"
+              >
                 {companies.map((company) => (
                   <CompanyCard
                     key={`company-${company.companyName}`}
