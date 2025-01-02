@@ -48,7 +48,7 @@ export function CompanyCard({
             </h3>
             <p
               className={`text-gray-600 ${
-                variant === "full" ? "mt-2" : "mt-0"
+                variant === "full" ? "mt-2 sm:mt-0" : "mt-0"
               }`}
             >
               {!!data.industry && data.industry?.length > 0
@@ -62,7 +62,13 @@ export function CompanyCard({
             <h3 className="text-heading-8-bold sm:mb-1 !normal-case">
               Location
             </h3>
-            <p className="text-gray-600">{data.location ?? "-"}</p>
+            <p
+              className={`text-gray-600 ${
+                variant === "full" ? "mt-2 sm:mt-0" : "mt-0"
+              }`}
+            >
+              {data.location ?? "-"}
+            </p>
           </div>
         </div>
       </div>
