@@ -1,16 +1,16 @@
 import { Metadata } from "next";
-import CarbonThaiForm from "./_carbonThai.form";
-import { LoadingProvider } from "./loadingContext";
+import { LoadingProvider } from "../../../share/providers/loadingContextProvider";
+import BCorpForm from "./_bcorp.form";
 
-export default function CarbonThaiScreen() {
+export default function BCorpScreen() {
   return (
     <LoadingProvider>
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 row-start-2 items-center">
           <h1 className="text-xl sm:text-2xl text-center font-bold">
-            Carbon Thai
+            B Corporation
           </h1>
-          <CarbonThaiForm />
+          <BCorpForm />
         </main>
       </div>
     </LoadingProvider>
@@ -18,5 +18,5 @@ export default function CarbonThaiScreen() {
 }
 
 export const metadata: Metadata = {
-  title: "Carbon Thai",
+  title: "B Corporation",
 };
