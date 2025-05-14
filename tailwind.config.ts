@@ -1,7 +1,7 @@
 const customPlugin = require("./tailwind-plugin");
 
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -126,6 +126,7 @@ export default {
           "900": "var(--colors-blue-900)",
         },
         white: {
+          DEFAULT: "var(--colors-white)",
           "100": "var(--colors-white-100)",
           "200": "var(--colors-white-200)",
           "300": "var(--colors-white-300)",
@@ -184,3 +185,5 @@ export default {
   },
   plugins: [customPlugin],
 };
+
+export default config;

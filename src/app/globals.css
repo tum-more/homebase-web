@@ -4,8 +4,8 @@
 @tailwind utilities;
 
 :root {
-  --font-archivo: "Archivo", sans-serif;
-  --font-family-body: "Inter", sans-serif;
+  --font-archivo: "Archivo" sans-serif;
+  --font-family-body: "Inter", "Noto Sans Thai", sans-serif;
   --colors-brand-50: #fff3f2;
   --colors-brand-100: #fee6e4;
   --colors-brand-200: #fdcbc6;
