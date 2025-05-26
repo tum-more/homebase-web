@@ -1,11 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "thaicarbonlabel.tgo.or.th",
-      "www.morestudio.co.th"
-    ],
-  },
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.morestudio.co.th",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "thaicarbonlabel.tgo.or.th",
+        pathname: "/**"
+      }
+    ]
+  },  
 };
 
 export default nextConfig;

@@ -42,45 +42,39 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="my-4">
               <p className="text-lg font-medium text-[#FF4500]">
-                พิเศษ! มีโอกาสเป็นเจ้าของมอเตอร์ไซค์ไฟฟ้า
-                เมื่อเช่าครบตามระยะเวลาและเงื่อนไขที่กำหนด
+                พิเศษ! มีโอกาสเป็นเจ้าของมอเตอร์ไซค์ไฟฟ้า เมื่อเช่าครบตามระยะเวลาและเงื่อนไขที่กำหนด
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
               {/* Card 1 */}
               <div className="rounded-lg border border-gray-200 p-6">
                 <h3 className="text-lg font-medium">บริการรูปแบบที่ 1</h3>
-                <h4 className="mt-2 text-xl font-bold">
-                  รถจักรยานยนต์ไฟฟ้าพร้อมคนขับ
-                </h4>
+                <h4 className="mt-2 text-xl font-bold">รถจักรยานยนต์ไฟฟ้าพร้อมคนขับ</h4>
 
                 <ul className="mt-4 space-y-2 text-sm">
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>บริษัทเราจัดหาทั้งรถไฟฟ้า พร้อมคนขับให้</span>
+                    <span>รถจักรยานยนต์ไฟฟ้าใหม่ พร้อมส่งมอบ</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>เวลาทำงานต่อวัน 7-8 ชั่วโมง (09:00-18:00 น.)</span>
+                    <span>พนักงานขับขี่ประจำ 26 วัน/เดือน (09:00–18:00 น.)</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>
-                      ทำงานตามพื้นที่ที่กำหนด
-                      ทำตามออเดอร์ที่ได้รับมอบหมายจากลูกค้า
-                    </span>
+                    <span>สำรองพนักงานขับขี่ กรณีพนักงานหลักไม่สามารถปฏิบัติงาน</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>รับประกันความเสียหายของสินค้า 1 %</span>
+                    <span>จัดหารถสำรองกรณีรถเข้าซ่อมเกิน 1 วัน</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>บริการช่วยเหลือฉุกเฉินตลอด 24 ชั่วโมง</span>
+                    <span>บริการประสานงานและดูแลตลอด 24 ชั่วโมง</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>สามารถเลือกพื้นที่การทำงานได้ตาม ลูกค้าต้องการ</span>
+                    <span>พนักงานขับขี่จัดการหาที่จอดรถ ลูกค้าไม่ต้องจัดหาเอง</span>
                   </li>
                 </ul>
 
@@ -88,12 +82,8 @@ export default function Home() {
                   <table className="w-full">
                     <thead>
                       <tr>
-                        <th className="pb-2 text-left text-sm font-medium text-[#FF4500]">
-                          จำนวน
-                        </th>
-                        <th className="pb-2 text-right text-sm font-medium text-[#FF4500]">
-                          ราคา (บาท)
-                        </th>
+                        <th className="pb-2 text-left text-sm font-medium text-[#FF4500]">จำนวน</th>
+                        <th className="pb-2 text-right text-sm font-medium text-[#FF4500]">ราคา (บาท)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -138,19 +128,19 @@ export default function Home() {
                 <ul className="mt-4 space-y-2 text-sm">
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>บริษัทเราจัดหาเฉพาะรถไฟฟ้า พร้อมอุปกรณ์</span>
+                    <span>รถจักรยานยนต์ไฟฟ้าใหม่ พร้อมส่งมอบ</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>รับประกันความเสียหายของสินค้า 1 %</span>
+                    <span>จัดหารถสำรองกรณีรถเข้าซ่อมเกิน 1 วัน</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>บริการช่วยเหลือฉุกเฉินตลอด 24 ชั่วโมง</span>
+                    <span>บริการประสานงานและดูแลตลอด 24 ชั่วโมง</span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-[#FF4500]">•</span>
-                    <span>อุปกรณ์ครบพร้อมขนส่ง</span>
+                    <span>ลูกค้าจัดหาที่จอดรถเอง</span>
                   </li>
                 </ul>
 
@@ -158,12 +148,8 @@ export default function Home() {
                   <table className="w-full">
                     <thead>
                       <tr>
-                        <th className="pb-2 text-left text-sm font-medium text-[#FF4500]">
-                          จำนวน
-                        </th>
-                        <th className="pb-2 text-right text-sm font-medium text-[#FF4500]">
-                          ราคา (บาท)
-                        </th>
+                        <th className="pb-2 text-left text-sm font-medium text-[#FF4500]">จำนวน</th>
+                        <th className="pb-2 text-right text-sm font-medium text-[#FF4500]">ราคา (บาท)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -206,9 +192,7 @@ export default function Home() {
         {/* Comparison Table */}
         <section className="bg-gray-50 py-12">
           <div className="container mx-auto px-4">
-            <h2 className="mb-8 text-center text-2xl font-bold">
-              ตารางเปรียบเทียบ
-            </h2>
+            <h2 className="mb-8 text-center text-2xl font-bold">ตารางเปรียบเทียบ</h2>
 
             <div className="overflow-x-auto md:mx-auto md:max-w-[900px]">
               <table className="w-full">
@@ -220,14 +204,12 @@ export default function Home() {
                       <br />
                       พร้อมคนขับ
                     </th>
-                    <th className="pb-4 text-center text-sm font-medium">
-                      รถจักรยานยนต์ไฟฟ้า
-                    </th>
+                    <th className="pb-4 text-center text-sm font-medium">รถจักรยานยนต์ไฟฟ้า</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">บริษัทเราจัดหาทั้งรถไฟฟ้า</td>
+                    <td className="py-2 text-sm">รถจักรยานยนต์ไฟฟ้าใหม่</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -236,23 +218,21 @@ export default function Home() {
                     </td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">
-                      เวลาทำงานต่อวัน 7-8 ชั่วโมง
-                    </td>
+                    <td className="py-2 text-sm">พนักงานขับขี่ประจำ (26 วัน/เดือน)</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
                     <td className="py-2 text-center"></td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">พื้นที่ทำงานที่กำหนด</td>
+                    <td className="py-2 text-sm">พนักงานขับขี่สำรอง</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
                     <td className="py-2 text-center"></td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">รับประกันความเสียหาย</td>
+                    <td className="py-2 text-sm">รถสำรองกรณีซ่อมนาน</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -261,7 +241,7 @@ export default function Home() {
                     </td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">บริการช่วยเหลือ 24 ชั่วโมง</td>
+                    <td className="py-2 text-sm">ทีมประสานงาน 24 ชั่วโมง</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -270,7 +250,7 @@ export default function Home() {
                     </td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">อุปกรณ์ครบพร้อมใช้</td>
+                    <td className="py-2 text-sm">จัดการหาที่จอดให้</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -279,7 +259,7 @@ export default function Home() {
                     </td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">ท่านเลือกพื้นที่ได้</td>
+                    <td className="py-2 text-sm">ประกันภัยชั้นหนึ่ง</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -288,9 +268,7 @@ export default function Home() {
                     </td>
                   </tr>
                   <tr className="hover:bg-orange-100 transition-colors duration-150">
-                    <td className="py-2 text-sm">
-                      ทำงานตามพื้นที่ที่กำหนดจากลูกค้า
-                    </td>
+                    <td className="py-2 text-sm">บำรุงรักษาและซ่อมบำรุงครบวงจร</td>
                     <td className="py-2 text-center">
                       <Check className="mx-auto h-5 w-5 text-gray-600" />
                     </td>
@@ -307,9 +285,7 @@ export default function Home() {
         {/* Benefits Section */}
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <h2 className="mb-2 text-center text-3xl font-bold">
-              ความสะดวกสบาย
-            </h2>
+            <h2 className="mb-2 text-center text-3xl font-bold">ความสะดวกสบาย</h2>
             <p className="mb-8 text-center text-sm">ที่คุณเลือกได้</p>
 
             <div className="grid gap-6 md:grid-cols-3">
@@ -324,9 +300,7 @@ export default function Home() {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">
-                  ชาร์จง่าย
-                </h3>
+                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">ชาร์จง่าย</h3>
                 <p className="text-center text-sm">ใช้ได้ทั่วไป สะดวกทุกที่</p>
               </div>
 
@@ -341,9 +315,7 @@ export default function Home() {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">
-                  การเดินทาง
-                </h3>
+                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">การเดินทาง</h3>
                 <p className="text-center text-sm">วิ่งได้ถึง 200km/ครั้ง</p>
               </div>
 
@@ -358,9 +330,7 @@ export default function Home() {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">
-                  แบตเตอรี่
-                </h3>
+                <h3 className="mb-2 text-center text-xl font-bold text-[#FF4500]">แบตเตอรี่</h3>
                 <p className="text-center text-sm">เปลี่ยนเพียง 5-10 นาที</p>
               </div>
             </div>
@@ -386,11 +356,11 @@ export default function Home() {
               </div>
             </div>
             <div className="text-right text-sm w-full md:w-auto self-end mt-auto md:self-end">
-              <div className="mb-2 font-bold">Contact us</div>
-              <div className="">line: 02 639 8457</div>
-              <div className="">อีเมล: HomeBase@morestudio.co.th</div>
-              <div className="">เว็บไซต์: https://www.homebaseth.com</div>
-              <div className="mt-2 ">Homebase EV - ธุรกิจเดลิเวอรี่ยุคใหม่</div>
+              <div className="mb-2">Contact us</div>
+              <div className="text-gray-400">line: 02 619 8457</div>
+              <div className="text-gray-400">อีเมล: HomeBase@morestudio.co.th</div>
+              <div className="text-gray-400">เว็บไซต์: https://www.homebaseth.com</div>
+              <div className="mt-2 text-gray-400">HomeBase EV – โซลูชันที่ตอบโจทย์ธุรกิจของคุณ</div>
             </div>
           </div>
         </div>
