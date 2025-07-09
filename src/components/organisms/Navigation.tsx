@@ -24,22 +24,28 @@ export function Navigation() {
   return (
     <nav className="bg-white-500 border-b border-[#DCDCDC] py-[20px] w-full">
       <div className="container mx-auto flex max-w-screen-xl items-center justify-between sm:justify-start">
-        <Link
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = "/";
-          }}
-        >
-          <Image
-            src="/images/logo-black@3x.png"
-            alt="Homebase-media-Logo"
-            width={100}
-            height={10}
-            className="mr-8"
-            priority
-          />
-        </Link>
+        <div className="flex items-center space-x-10">
+          <Link href="/">
+            <Image
+              src="/images/logo-hb_22px.png"
+              alt="Homebase-media-Logo"
+              width={100}
+              height={10}
+              className="mr-8"
+              priority
+            />
+          </Link>
+          <Link href="/rental">
+            <Image
+              src="/images/logo-hb-rental_22px.png"
+              alt="Homebase-media-Logo"
+              width={100}
+              height={10}
+              className="mr-8"
+              priority
+            />
+          </Link>
+        </div>
 
         <div className="block sm:hidden">
           <button onClick={toggleMenu} className="text-black">
